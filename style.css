@@ -1,0 +1,12 @@
+body {
+    background-color: #D2D4BC;
+    /*
+    #F17B52 orange
+    #EA596A rosa
+    */
+}
+
+.trivia {
+    padding: 20px;
+    border: 1px solid black;
+}
