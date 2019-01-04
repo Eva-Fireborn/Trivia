@@ -6,7 +6,33 @@ body {
     */
 }
 
-.trivia {
-    padding: 20px;
-    border: 1px solid black;
+
+.aside {
+    background-image: url("score.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 400px;
+    height: 400px;
+    position: relative;
+    float: right;
+    display: block;
+    padding-right: 20px;
+}
+
+#todayPoints, #allTimePoints {
+    color: white;
+    font-weight: bold;
+    position: relative;
+    width: 95px;
+    text-align: center;
+    font-size: 50px;
+}
+#todayPoints {
+    left: 37px;
+    top: 70px;
+}
+
+#allTimePoints {
+    top: 15px;
+    left: 270px;
 }
