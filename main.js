@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     let totalPoints = 0;
 
     let temporary = localStorage.getItem('totalPoints');
