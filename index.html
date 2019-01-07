@@ -4,33 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Trivia</title>
     <link href="style.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <script
         src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
-    <script src="main.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 </head>
 <body>
     <header>
-        <div>Senaste resultatet eller total score</div>
+ 
+        <img id="logotype" src = "pictures\trivialog5.png" alt = "slogan">
+        <span id="welcomeBack">It´s allright to cry...Sven</span>
 
     </header>
 
     <main>
-    <div class="trivia">
-        <div id="question">Fråga</div>
-        <button id="trueButton">True</button>
-        <button id="falseButton">False</button>
-    </div>
-    
-    <div id="correct">
-        <button id="correctNext">Next</button>
-    </div>
-    <div id="wrong">
-        <button id="wrongNext">Next</button>
-    </div>
+        <div class="newGame">
+            <p>Start a new game?</p>
+            <button id="newGameButton">New Game</button>
+        </div>
+        <div class="trivia">
+            <p id="cathegory">Kategori</p>
+            <p id="question">Fråga</p>
+            <div id="question"></div>
+            <button id="trueButton">True</button>
+            <button id="falseButton">False</button>
+        </div>
+        <div id="correct">
+            <img src="https://3.bp.blogspot.com/-JTsX8VMsU1A/WetfFeB5C-I/AAAAAAALsIs/dVAfKhmnSI8uQtNf0ONt5kmrfP8ygMUSACLcBGAs/s1600/AW586900_01.gif" title="I was right!">
+            <p>You're so smart!</p>
+            <button id="correctNext">Next</button>
+        </div>
+        <div id="wrong">
+            <img src="https://1.bp.blogspot.com/-EmtMaQ7t6Bs/WdI3rkH5zvI/AAAAAAACyv8/ixgXwcH_xkMNV-o02MXVChVA21noWw5OQCLcBGAs/s1600/AW560827_11.gif" title="I was terribly wrong">
+            <p>You will do better next time.</p>
+            <button id="wrongNext">Next</button>
+        </div>
+
     </main>
 
     <aside>
