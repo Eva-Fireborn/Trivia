@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("input.Particle").attr('disabled','disabled');
 
     $('#newGameButton').on('click', event => {
         $('.newGame').css('display', 'none');
