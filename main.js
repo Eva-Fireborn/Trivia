@@ -52,3 +52,23 @@ $(document).ready(function() {
         break;
     }
  }
+ //function changeFunText
+ function changeFunText (number=4) {
+    let random=Math.ceil(Math.random() * Math.floor(number));
+    switch(random){
+        case 1:
+        $('#welcomeBack').html(`It´s allright to cry...${}`);
+        break;
+        case 2:
+        $('#welcomeBack').html(`It´s not Rocket science...${}`);
+        break;
+        case 3:
+        $('#welcomeBack').html(`Nice to see you...${}`);
+        break;
+        case 4:
+        $('#welcomeBack').html(`Don´t hesitate...${}`);
+        break;
+
+    }
+ };
+ //end fuction changeFunText.
