@@ -3,64 +3,25 @@ body {
     display: grid;
     grid-template-rows: auto auto;
     grid-template-columns: auto auto;
-    /*
-    #F17B52 orange
-    #EA596A rosa
-    */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
-aside {
-    grid-column: 2;
-    grid-row: 2;
-    padding-right: 100px;
-}
-.aside {
-    background-image: url("score.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 400px;
-    height: 400px;
-    position: relative;
-    float: right;
-    display: block;
-}
-
-#todayPoints, #allTimePoints {
-    color: white;
-    font-weight: bold;
-    position: relative;
-    width: 95px;
-    text-align: center;
-    font-size: 50px;
-}
-#todayPoints {
-    left: 37px;
-    top: 70px;
-}
-
-#allTimePoints {
-    top: 15px;
-    left: 270px;
-}
-
-
+/*CSS för header*/
 header {
     grid-row: 1;
     grid-column: 1 / 3;
     width: 100%;
     height: 140px;
     margin-bottom: 20px;
-  /*border-bottom: solid #F17B52;*/
-/*  background-color: lightblue;*/
     display: block;
 }
 #logotype{
-  /*background-color: lightblue;*/
   position: relative;
   margin-left: 20px;
   margin-top:  10px;
 }
 #welcomeBack{
-  /*background-color: lightpink;*/
   display: inline-block;
   position: relative;
   float: right;
@@ -69,13 +30,14 @@ header {
   font-size: 2.3em;
   font-family: 'PT Sans', sans-serif;
 }
+/*CSS för main elementen*/
 main {
     grid-column: 1;
     grid-row: 2;
-    padding-left: 200px;
+    padding-left: 100px;
     padding-top: 30px;
 }
-
+/*CSS för nytt spel div*/
 .newGame {
     background-color: #F7F6E7;
     padding: 20px;
@@ -85,12 +47,10 @@ main {
     text-align: center;
     font-family: 'PT Sans', sans-serif;
 }
-
 .newGame p {
     font-family: 'PT Sans', sans-serif;
     font-size: 25px;
 }
-
 #newGameButton {
     font-family: 'PT Sans', sans-serif;
     width: 120px;
@@ -100,7 +60,7 @@ main {
     font-size: 20px;
     border: none;
 }
-
+/*CSS för frågediv*/
 .trivia {
     background-color: white;
     padding: 20px;
@@ -119,6 +79,26 @@ main {
 #question {
     font-size: 20px;
 }
+#trueButton {
+    font-family: 'PT Sans', sans-serif;
+    width: 120px;
+    height: 2em;
+    margin: 20px;
+    background-color: #EA596A;
+    font-size: 20px;
+    border: none;
+}
+#falseButton {
+    font-family: 'PT Sans', sans-serif;
+    width: 120px;
+    height: 2em;
+    margin: 20px;
+    font-size: 20px;
+    background-color: #EA596A;
+    border: none;
+
+}
+/*CSS för rätt svar div*/
 #correct {
     display:none;
     background-color: white;
@@ -148,6 +128,7 @@ main {
     background-color: #EA596A;
     border: none;
 }
+/*CSS för fel svar div*/
 #wrong {
     display:none;
     font-family: 'PT Sans', sans-serif;
@@ -176,26 +157,40 @@ main {
     background-color: #EA596A;
     border: none;
 }
-#trueButton {
-    font-family: 'PT Sans', sans-serif;
-    width: 120px;
-    height: 2em;
-    margin: 20px;
-    background-color: #EA596A;
-    font-size: 20px;
-    border: none;
+/*CSS för aside*/
+aside {
+    grid-column: 2;
+    grid-row: 2;
+    padding-right: 100px;
 }
-#falseButton {
-    font-family: 'PT Sans', sans-serif;
-    width: 120px;
-    height: 2em;
-    margin: 20px;
-    font-size: 20px;
-    background-color: #EA596A;
-    border: none;
+.aside {
+    background-image: url("score.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 400px;
+    height: 400px;
+    position: relative;
+    float: right;
+    display: block;
+}
+#todayPoints, #allTimePoints {
+    color: white;
+    font-weight: bold;
+    position: relative;
+    width: 95px;
+    text-align: center;
+    font-size: 50px;
+}
+#todayPoints {
+    left: 37px;
+    top: 70px;
+}
 
+#allTimePoints {
+    top: 15px;
+    left: 270px;
 }
-/*frontpage*/
+/*CSS för skriv in användarnamn divar och animation*/
 #nextPage {
     width: 500px;
     display: block;
@@ -213,7 +208,6 @@ main {
     transition: background-color 1s;
     font-family: 'PT Sans', sans-serif;
 }
-
 #nextPage:hover {
   background-color: #FF5B61;
 }
@@ -223,12 +217,10 @@ main {
   font-weight: bold;
   font-family: 'PT Sans', sans-serif;
 }
-
 .warningSpan {
   color: #FF5B61;
   font-size: 18px;
 }
-
 #nameInput {
     width: 500px;
     height: 50px;
@@ -242,13 +234,6 @@ main {
     color: #FF5B61;
     font-family: 'PT Sans', sans-serif;
 }
-
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
 .background {
     grid-row: 1 / 3;
     grid-column: 1/3;
@@ -261,7 +246,6 @@ body {
   /*background: radial-gradient(ellipse at center, #edf3f8 1%,#dee3e8 100%);*/
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edf3f8', endColorstr='#dee3e8',GradientType=1 );
 } 
-
 .content {
   z-index: 10;
   position: absolute;
@@ -270,19 +254,16 @@ body {
   transform: translateX(-50%) translateY(-50%);
   text-align: center;
 }
-
 .thinkingImg {
     z-index: 10;
     width: 500px;
-}
-    
+}   
 .pentahedron {
   position: absolute;
   width: 100%;
   height: 100%;
   fill: #3E82F7; 
 }
-
 .point {
   fill: #8491A3;
 }
@@ -296,7 +277,6 @@ body {
 .circle {
   fill: #ED412D;
 }
-
 svg {
   display: block;
   width: 30px;
