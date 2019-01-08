@@ -34,15 +34,45 @@ $(document).ready(function() {
 
   })
 
-    $('#newGameButton').on('click', event => {
-        $('.newGame').css('display', 'none');
-        $('.trivia').css('display', 'block');
-        nextQuestion();
-        changeBackground();
-        changeFunText();
-        todayPoints = 0;
-    });
 
+  //implementera API 
+
+    $('#newGameButton').click(function(event) {
+        const url = 'https://opentdb.com/api.php?amount=10';
+		const settings = {
+			method: 'GET',
+			data: {
+                difficulty: 'easy',
+                type: 'boolean'
+			},
+		}
+		$.ajax(url, settings)
+		.done(function(response) {
+            if (response.response_code === 0) {
+            $('.newGame').hide();
+            $('.trivia').show();
+            changeBackground();
+            changeFunText();
+            todayPoints = 0;
+
+            currentGame = response.results;
+
+            nextQuestion();
+            } else {
+                $('#startWarning').html('Oops! Try again!');
+            }
+        })
+		.fail(function(response) {
+            console.log(`Something failed. Message: ${response}.`);
+        })
+		.always(function(response) {
+            console.log(response);
+        });
+   
+})
+    
+
+    //When you choose an answer it counts your points
     $('#trueButton').click(function(event) {
 
         if (currentGame[questionIndex].correct_answer === 'True') {
@@ -92,12 +122,6 @@ $(document).ready(function() {
     });
 
       
-
-
-
-
-
-
      //function changeFunText
     function changeFunText (number=4) {
         let random=Math.ceil(Math.random() * Math.floor(number));
@@ -161,12 +185,6 @@ $(document).ready(function() {
   const data = [point, rhombus, pentahedron, circle, x]
   
   
-  /*window.onblur = function() {
-      isPaused = true;
-  }.bind(this)
-  window.onfocus = function() {
-      isPaused = false;
-  }.bind(this)*/
   
   let particles = []
   
@@ -265,3 +283,5 @@ class Particle{
       }
     }
 }
+
+
