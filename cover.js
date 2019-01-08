@@ -50,9 +50,14 @@ class Particle{
 }
 
 $(document).ready(function(){
+  let isPaused = false;
+
   $('#nextPage').click(event => {
 		let value = $('#nameInput').val();
-		localStorage.setItem('username', value);
+    localStorage.setItem('username', value);
+    $('.content').css('display', 'none');
+    $('.background').css('display', 'none');
+    isPaused=true;
   })
   
   const rhombus = '<svg viewBox="0 0 13 14"><path class="rhombus" d="M5.9,1.2L0.7,6.5C0.5,6.7,0.5,7,0.7,7.2l5.2,5.4c0.2,0.2,0.5,0.2,0.7,0l5.2-5.4 C12,7,12,6.7,11.8,6.5L6.6,1.2C6.4,0.9,6.1,0.9,5.9,1.2L5.9,1.2z M3.4,6.5L6,3.9c0.2-0.2,0.5-0.2,0.7,0l2.6,2.6 c0.2,0.2,0.2,0.5,0,0.7L6.6,9.9c-0.2,0.2-0.5,0.2-0.7,0L3.4,7.3C3.2,7.1,3.2,6.8,3.4,6.5L3.4,6.5z" /></svg>'
@@ -70,7 +75,7 @@ $(document).ready(function(){
   
   const data = [point, rhombus, pentahedron, circle, x]
   
-  let isPaused = false;
+  
   window.onblur = function() {
       isPaused = true;
   }.bind(this)
