@@ -60,7 +60,7 @@ $(document).ready(function() {
             todayPoints = 0;
 
             currentGame = response.results;
-
+            $('#startWarning').html('Start a new game?');    
             nextQuestion();
             } else {
                 $('#startWarning').html('Oops! Try again!');
