@@ -39,6 +39,7 @@ $(document).ready(function() {
         $('.content').css('display', 'none');
         $('.background').css('display', 'none');
         isPaused=true;
+        changeFunText();
   })
   //implementera API 
     $('#newGameButton').click(function(event) {
