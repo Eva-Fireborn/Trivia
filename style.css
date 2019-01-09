@@ -216,10 +216,11 @@ aside {
   color: rgb(90, 90, 90);
   font-weight: bold;
   font-family: 'PT Sans', sans-serif;
+  font-size: 20px;
 }
 .warningSpan {
   color: #FF5B61;
-  font-size: 18px;
+  font-size: 24px;
 }
 #nameInput {
     width: 500px;

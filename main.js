@@ -17,11 +17,7 @@ $(document).ready(function() {
     };
 
     /*Kollar om de finns ett sparat användarnamn */
-    if (username === '') {
-        $('.content').css('display', 'block');
-        $('.background').css('display', 'block');
-        isPaused = false;
-    } else if (username !== null){
+    if (username !== null){
         $('.content').css('display', 'none');
         $('.background').css('display', 'none');
         isPaused = true;
@@ -31,15 +27,21 @@ $(document).ready(function() {
         $('.background').css('display', 'block');
         isPaused = false;
     }
-    /*Sparar användarnamn om man inte har ett */
+    /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
     $('#nextPage').click(event => {
-		let value = $('#nameInput').val();
-        localStorage.setItem('username', value);
-        username = value;
-        $('.content').css('display', 'none');
-        $('.background').css('display', 'none');
-        isPaused=true;
-        changeFunText();
+        if ($('#nameInput').val() !== ""){
+            let value = $('#nameInput').val();
+            localStorage.setItem('username', value);
+            username = value;
+            $('.content').css('display', 'none');
+            $('.background').css('display', 'none');
+            isPaused=true;
+            changeFunText();
+            $('.warningSpan').text('Warning!');
+        } else {
+            $('.warningSpan').text('Warning, you may not proceed without a username!');
+        }
+	
   })
   //implementera API 
     $('#newGameButton').click(function(event) {
