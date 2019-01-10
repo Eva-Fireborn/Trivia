@@ -6,6 +6,143 @@ $(document).ready(function() {
     let todayPoints = 0;
     let username = localStorage.getItem('username');
     let questionIndex = -1;
+    const apiKey = 'KDw4u';
+    const url = 'https://www.forverkliga.se/JavaScript/api/crud.php';
+    let userId = localStorage.getItem('userId');
+    let userList = [];
+
+
+    /*//API for user name and score
+    function requestKey (numberOfTries = 5) {
+        const settings = {
+            method: 'GET',
+        }
+        $.ajax('//www.forverkliga.se/JavaScript/api/crud.php?requestKey', settings)
+        .always(function(response) {
+            console.log(response);
+        })
+    };
+    requestKey(); */
+
+    //API code TO SEND THE USER NAME AND SCORE TO API, RECURSIVE FUNCTION TO FIX FAILS
+    function getUserId (numberOfTries = 5) {
+        if (numberOfTries < 1 ) {
+            console.log(`We tried 5 times and did get fail anyways.`);
+            return;
+        }
+
+        const settings = {
+            method: 'GET',
+            data: {
+                op: 'insert',
+                key: apiKey,
+                title: username,
+                author: totalPoints
+            }
+        }
+
+        $.ajax(url, settings)
+        .done (response => whenResponseIsIn(response, numberOfTries))
+        .always(function(response) {
+            console.log(response);
+        })
+    };
+
+    function whenResponseIsIn(response, numberOfTries) {
+        const obj = JSON.parse(response);
+        if (obj.status === 'success') {
+            //then the next function to write out name and score is on
+            console.log('Name is saved!');
+            userId = obj.id;
+            console.log(`User id is: ${userId}`);
+            localStorage.setItem('userId', userId);
+        } else {
+            getUserId(numberOfTries - 1);
+        }
+    }
+
+
+    //API code to get the data of user and score from the api
+    function viewHighscore (numberOfTries = 5) {
+        if (numberOfTries < 1 ) {
+            console.log(`We tried 5 times and did get fail anyways.`);
+            return;
+        }
+
+        const settings = {
+            method: 'GET',
+            data: {
+                op: 'select',
+                key: apiKey
+            }
+        }
+
+        $.ajax(url, settings)
+        .done (response => whenResponseIsIn2(response, numberOfTries))
+        .always(function(response) {
+            //console.log(response);
+        })
+    };
+
+    function whenResponseIsIn2(response, numberOfTries) {
+        const obj = JSON.parse(response);
+
+        if (obj.status === 'success') {
+            obj.data.forEach(function(user) {
+                userList = [];
+                userList.push({userName: user.title, score: user.author});
+                console.log(userList);
+            })
+            //write out the name and score to the score board
+            $('#winnerName').html(userList[0].userName);
+            $('#winnerScore').html(userList[0].score);
+            /*$('#secondName').html(userList[1].userName);
+            $('#secondScore').html(userList[1].score);
+            $('#thirdName').html(userList[2].userName);
+            $('#thirdScore').html(userList[2].score);*/
+
+        } else {
+           viewHighscore(numberOfTries - 1);
+        }
+    }
+
+
+    //to UPDATE points
+    function updatePoints (numberOfTries = 5) {
+        if (numberOfTries < 1 ) {
+            console.log(`We tried 5 times and did get fail anyways.`);
+            return;
+        }
+
+        const settings = {
+            method: 'GET',
+            data: {
+                op: 'update',
+                key: apiKey,
+                id: userId,
+                title: username,
+                author: totalPoints
+            }
+        }
+
+        $.ajax(url, settings)
+        .done (response => whenResponseIsIn3(response, numberOfTries))
+        .always(function(response) {
+            console.log(response);
+        })
+    };
+
+    function whenResponseIsIn3(response, numberOfTries) {
+        const obj = JSON.parse(response);
+        if (obj.status === 'success') {
+            console.log(`updated: ${response}`);
+        } else {
+            updatePoints(numberOfTries - 1);
+        }
+    }
+
+
+
 
     /*Kollar om en total poäng finns sparat i local storage */
     let temporary = localStorage.getItem('totalPoints');
@@ -29,6 +166,7 @@ $(document).ready(function() {
     }
     /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
     $('#nextPage').click(event => {
+
         if ($('#nameInput').val() !== ""){
             let value = $('#nameInput').val();
             localStorage.setItem('username', value);
@@ -38,16 +176,29 @@ $(document).ready(function() {
             isPaused=true;
             changeFunText();
             $('.warningSpan').text('Warning!');
+
+
+            getUserId();
+
+
+
         } else {
             $('.warningSpan').text('Warning, you may not proceed without a username!');
         }
+});
 
-  })
 
 
-  //implementera API
+
+
+  //implementera QUIZ API
+
 
     $('#newGameButton').click(function(event) {
+        viewHighscore();
+
+
+
         const url = 'https://opentdb.com/api.php?amount=10';
 		const settings = {
 			method: 'GET',
@@ -76,15 +227,11 @@ $(document).ready(function() {
             console.log(`Something failed. Message: ${response}.`);
         })
 		.always(function(response) {
-            console.log(response);
+            //console.log(response);
         });
 
 
 });
-
-
-
-
 
 
     //When you choose an answer it counts your points
@@ -155,6 +302,7 @@ $(document).ready(function() {
             }
         };//end fuction changeFunText.
 
+
     function nextQuestion(){
       //When user press next, next question will appear.
       if(questionIndex <= 8){
@@ -163,6 +311,7 @@ $(document).ready(function() {
         $('#question').html(currentGame[questionIndex].question);
       }else{
           questionIndex = -1;
+          updatePoints();
           $('.newGame').css('display', 'block');
           $('.trivia').css('display', 'none');
           $('#correct').css('display', 'none');
@@ -211,7 +360,7 @@ $(document).ready(function() {
     particles = particles.filter(function(p){
       return p.move()
     })
-    requestAnimationFrame(update.bind(this))
+    requestAnimationFrame(update.bind(this));
   }
 
   update();
