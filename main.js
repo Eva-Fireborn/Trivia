@@ -150,13 +150,7 @@ $(document).ready(function() {
         } else {
             $('.warningSpan').text('Warning, you may not proceed without a username!');
         }
-	
-  })
-
-
-
- 
-
+  });
 
   //implementera API 
 
@@ -195,14 +189,12 @@ $(document).ready(function() {
 		.always(function(response) {
             //console.log(response);
         });
-
-
-})
+    });
 
 
 
    
-    });
+
 
     //When you choose an answer it counts your points
     $('#trueButton').click(function(event) {
@@ -276,12 +268,6 @@ $(document).ready(function() {
             }
         };//end fuction changeFunText.
 
-
-
-
-
-
-    let questionIndex = -1;
 
 
     function nextQuestion(){
