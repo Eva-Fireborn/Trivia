@@ -77,6 +77,42 @@ $(document).ready(function() {
            getNameAndPoints(numberOfTries - 1);
         }
     }
+
+
+    //to delete the old username and points
+    function deleteOldUsernamePoints (numberOfTries = 5) {
+        if (numberOfTries < 1 ) {
+            console.log(`We tried 5 times and did get fail anyways.`);
+            return; 
+        }
+
+        const settings = {
+            method: 'GET',
+            data: {
+                op: 'remove',
+                key: username,
+                group: groupName
+            }
+        }
+
+        $.ajax(url, settings)
+        .done (response => whenResponseIsIn3(response, numberOfTries))
+        .always(function(response) {
+            console.log(response);
+        })
+    };
+
+    function whenResponseIsIn3(response, numberOfTries) {
+        const obj = JSON.parse(response);
+        if (obj.status === 'success') {
+            console.log(`delete: ${response}`);
+            //then the next function to write out name and score is on
+        
+        } else {
+            deleteOldUsernamePoints(numberOfTries - 1);
+        }
+    }
+
     
 
 
@@ -125,8 +161,10 @@ $(document).ready(function() {
   //implementera API 
 
     $('#newGameButton').click(function(event) {
+        deleteOldUsernamePoints();
         sendRequestStoreNamePoints();
         getNameAndPoints();
+       
         const url = 'https://opentdb.com/api.php?amount=10';
 		const settings = {
 			method: 'GET',
@@ -155,7 +193,7 @@ $(document).ready(function() {
             console.log(`Something failed. Message: ${response}.`);
         })
 		.always(function(response) {
-            console.log(response);
+            //console.log(response);
         });
 
 
