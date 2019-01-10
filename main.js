@@ -201,6 +201,7 @@ $(document).ready(function() {
 
   //implementera QUIZ API
 
+
     $('#newGameButton').click(function(event) {
         viewHighscore();
         
@@ -236,9 +237,7 @@ $(document).ready(function() {
 		.always(function(response) {
             //console.log(response);
         });
-
-
-})
+    });
 
 
 
