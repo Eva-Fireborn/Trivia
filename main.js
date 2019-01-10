@@ -155,7 +155,7 @@ $(document).ready(function() {
   //implementera API 
 
     $('#newGameButton').click(function(event) {
-        deleteOldUsernamePoints();
+        //deleteOldUsernamePoints();
         sendRequestStoreNamePoints();
         getNameAndPoints();
        
