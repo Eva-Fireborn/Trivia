@@ -6,6 +6,79 @@ $(document).ready(function() {
     let todayPoints = 0;
     let username = localStorage.getItem('username');
     let questionIndex = -1;
+    const groupName = 'qhNr7';
+    const url = 'https://www.forverkliga.se/JavaScript/api/api-db.php';
+
+
+    //API for user name and score
+    //API code TO SEND THE USER NAME AND SCORE TO API, RECURSIVE FUNCTION TO FIX FAILS
+    function sendRequestStoreNamePoints (numberOfTries = 5) {
+        if (numberOfTries < 1 ) {
+            console.log(`We tried 5 times and did get fail anyways.`);
+            return; 
+        }
+
+        const settings = {
+            method: 'GET',
+            data: {
+                op: 'set',
+                key: username,
+                value: totalPoints,
+                group: groupName
+            }
+        }
+
+        $.ajax(url, settings)
+        .done (response => whenResponseIsIn(response, numberOfTries))
+        .always(function(response) {
+            console.log(response);
+        })
+    };
+
+    function whenResponseIsIn(response, numberOfTries) {
+        const obj = JSON.parse(response);
+        if (obj.status === 'success') {
+            //then the next function to write out name and score is on
+         console.log('Name is saved!');
+        } else {
+            sendRequestStoreNamePoints(numberOfTries - 1);
+        }
+    }
+
+    //API code to get the data of user and score from the api
+    function getNameAndPoints (numberOfTries = 5) {
+        if (numberOfTries < 1 ) {
+            console.log(`We tried 5 times and did get fail anyways.`);
+            return; 
+        }
+
+        const settings = {
+            method: 'GET',
+            data: {
+                op: 'get',
+                key: username,
+                group: groupName
+            }
+        }
+
+        $.ajax(url, settings)
+        .done (response => whenResponseIsIn2(response, numberOfTries))
+        .always(function(response) {
+            console.log(response);
+        })
+    };
+
+    function whenResponseIsIn2(response, numberOfTries) {
+        const obj = JSON.parse(response);
+        if (obj.status === 'success') {
+            console.log(obj);
+            //then the next function to write out name and score is on
+        } else {
+           getNameAndPoints(numberOfTries - 1);
+        }
+    }
+    
+
 
     /*Kollar om en total poäng finns sparat i local storage */
     let temporary = localStorage.getItem('totalPoints');
@@ -45,6 +118,8 @@ $(document).ready(function() {
   })
   //implementera API 
     $('#newGameButton').click(function(event) {
+        sendRequestStoreNamePoints();
+        getNameAndPoints();
         const url = 'https://opentdb.com/api.php?amount=10';
 		const settings = {
 			method: 'GET',
@@ -77,6 +152,13 @@ $(document).ready(function() {
         });
    
     });
+
+    
+
+
+
+
+
     //When you choose an answer it counts your points
     $('#trueButton').click(function(event) {
         if (currentGame[questionIndex].correct_answer === 'True') {
