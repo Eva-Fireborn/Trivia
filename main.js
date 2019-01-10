@@ -88,18 +88,27 @@ $(document).ready(function() {
         const obj = JSON.parse(response);
         
         if (obj.status === 'success') {
+            userList = [];
             obj.data.forEach(function(user) {
-                userList = [];
+                
                 userList.push({userName: user.title, score: user.author});
-                console.log(userList);
+
+                console.log('user list is: ', userList);
+
             })
+
+            
+            //THE FUNCTION TO SORT THE USER SCORES
+
+
+
             //write out the name and score to the score board
             $('#winnerName').html(userList[0].userName);
             $('#winnerScore').html(userList[0].score);
-            /*$('#secondName').html(userList[1].userName);
+            $('#secondName').html(userList[1].userName);
             $('#secondScore').html(userList[1].score);
             $('#thirdName').html(userList[2].userName);
-            $('#thirdScore').html(userList[2].score);*/
+            $('#thirdScore').html(userList[2].score);
            
         } else {
            viewHighscore(numberOfTries - 1);
