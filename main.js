@@ -41,15 +41,11 @@ $(document).ready(function() {
         } else {
             $('.warningSpan').text('Warning, you may not proceed without a username!');
         }
-	
+
   })
 
 
-
- 
-
-
-  //implementera API 
+  //implementera API
 
     $('#newGameButton').click(function(event) {
         const url = 'https://opentdb.com/api.php?amount=10';
@@ -84,12 +80,12 @@ $(document).ready(function() {
         });
 
 
-})
+});
 
 
 
-   
-    });
+
+
 
     //When you choose an answer it counts your points
     $('#trueButton').click(function(event) {
@@ -139,10 +135,6 @@ $(document).ready(function() {
     });
 
 
-
-    
-
-      
      //function changeFunText som ger meddelande till användaren
 
     function changeFunText (number=4) {
@@ -163,14 +155,6 @@ $(document).ready(function() {
             }
         };//end fuction changeFunText.
 
-
-
-
-
-
-    let questionIndex = -1;
-
-
     function nextQuestion(){
       //When user press next, next question will appear.
       if(questionIndex <= 8){
@@ -190,10 +174,10 @@ $(document).ready(function() {
 
     //Tillhör animationen
 
-  
+
 
   const rhombus = '<svg viewBox="0 0 13 14"><path class="rhombus" d="M5.9,1.2L0.7,6.5C0.5,6.7,0.5,7,0.7,7.2l5.2,5.4c0.2,0.2,0.5,0.2,0.7,0l5.2-5.4 C12,7,12,6.7,11.8,6.5L6.6,1.2C6.4,0.9,6.1,0.9,5.9,1.2L5.9,1.2z M3.4,6.5L6,3.9c0.2-0.2,0.5-0.2,0.7,0l2.6,2.6 c0.2,0.2,0.2,0.5,0,0.7L6.6,9.9c-0.2,0.2-0.5,0.2-0.7,0L3.4,7.3C3.2,7.1,3.2,6.8,3.4,6.5L3.4,6.5z" /></svg>'
-  
+
   const pentahedron = '<svg viewBox="0 0 561.8 559.4"><path class="pentahedron" d="M383.4,559.4h-204l-2.6-0.2c-51.3-4.4-94-37-108.8-83l-0.2-0.6L6,276.7l-0.2-0.5c-14.5-50,3.1-102.7,43.7-131.4 L212.1,23C252.4-7.9,310.7-7.9,351,23l163.5,122.5l0.4,0.3c39,30.3,56,82.6,42.2,130.3l-0.3,1.1l-61.5,198 C480.4,525.6,435.5,559.4,383.4,559.4z M185.5,439.4h195.2l61.1-196.8c0-0.5-0.3-1.6-0.7-2.1L281.5,120.9L120.9,241.2 c0,0.3,0.1,0.7,0.2,1.2l60.8,195.8C182.5,438.5,183.7,439.1,185.5,439.4z M441,240.3L441,240.3L441,240.3z"/></svg>'
   const x = '<svg viewBox="0 0 12 12"> <path class="x" d="M10.3,4.3H7.7V1.7C7.7,0.8,7,0,6,0S4.3,0.8,4.3,1.7v2.5H1.7C0.8,4.3,0,5,0,6s0.8,1.7,1.7,1.7h2.5v2.5 C4.3,11.2,5,12,6,12s1.7-0.8,1.7-1.7V7.7h2.5C11.2,7.7,12,7,12,6S11.2,4.3,10.3,4.3z"/></svg>'
 
@@ -273,6 +257,7 @@ class Particle{
       this.scale = 0.5 + Math.random()
       this.siner = 200 * Math.random()
     }
+
 
     destroy(){
       this.item.remove()
