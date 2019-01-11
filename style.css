@@ -211,6 +211,7 @@ aside {
     left: 545px;
 }
 
+/*Leader board css*/
 #leaderBoard {
     width: 250px;
     color: white;
@@ -255,7 +256,7 @@ aside {
 }
 
 /*TRYOUT FOR ROUND QUESTION DIVS*/
-.newGame, .trivia, #correct, #wrong {
+.newGame, .trivia, #correct, #wrong, #congratsDiv {
     border: 2px solid #20D0C2;
     font-family: 'PT Sans', sans-serif;
     padding: 20px;
@@ -267,6 +268,39 @@ aside {
     position: relative;
     top: -130px;
 }
+
+
+/*AFTER GAME IS OVER GREETING*/
+
+#congratsDiv {
+    display: none;
+}
+#congratsDiv img {
+    width: 350px;
+}
+
+#congratsDiv p {
+    font-size: 25px;
+    font-family: 'PT Sans', sans-serif;
+}
+#userPlace {
+    color: red;
+    font-weight: bold;
+    padding: 5px;
+    font-size: 40px;
+    position: relative;
+    top: 5px;
+}
+#startOver {
+    font-family: 'PT Sans', sans-serif;
+    width: 120px;
+    height: 2em;
+    margin: 20px;
+    font-size: 20px;
+    background-color: #EA596A;
+    border: none;
+}
+
 
 .newGame #startWarning, .newGame #newGameButton {
     position: relative;

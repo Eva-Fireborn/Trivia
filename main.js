@@ -125,6 +125,15 @@ $(document).ready(function() {
             $('#secondScore').html(highscore[1].score);
             $('#thirdName').html(highscore[2].userName);
             $('#thirdScore').html(highscore[2].score);
+
+            for (let i=0; i <highscore.length; i++) {
+                if (highscore[i].userName === username) {
+
+                    $('#userPlace').html(i +1);
+                }
+            };
+           
+
         } else {
            viewHighscore(numberOfTries - 1);
         }
@@ -299,8 +308,16 @@ $(document).ready(function() {
   //implementera QUIZ API
 
     $('#newGameButton').click(function(event) {
-        viewHighscore();
+        newGameFunction();
+    });
 
+    $('#startOver').click(function(event) {
+        $('#congratsDiv').hide();
+        newGameFunction();
+        isPaused = true;
+    })
+    
+    function newGameFunction() {
         const url = 'https://opentdb.com/api.php?amount=10';
 		const settings = {
 			method: 'GET',
@@ -317,6 +334,8 @@ $(document).ready(function() {
             changeBackground();
             changeFunText();
             todayPoints = 0;
+            
+            $('#todayPoints').html(todayPoints);
 
             currentGame = response.results;
             $('#startWarning').html('Start a new game?');
@@ -331,9 +350,13 @@ $(document).ready(function() {
 		.always(function(response) {
             //console.log(response);
         });
+    };
 
 
-});//newGameButton funktion slut.
+
+
+
+
 
 
     //When you choose an answer it counts your points
@@ -414,10 +437,13 @@ $(document).ready(function() {
       }else{
           questionIndex = -1;
           updatePoints();
-          $('.newGame').css('display', 'block');
+          $('#congratsDiv').show();
+          $('.newGame').css('display', 'none');
           $('.trivia').css('display', 'none');
           $('#correct').css('display', 'none');
           $('#wrong').css('display', 'none');
+          viewHighscore();
+          isPaused = false;
       }
 
     }; //functon nextQuestion ends here.
