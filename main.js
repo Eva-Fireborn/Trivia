@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 
     /*//API for user name and score
-    function requestKey (numberOfTries = 5) {
+    function requestKey (numberOfTries = 8) {
         const settings = {
             method: 'GET',
         }
@@ -25,9 +25,9 @@ $(document).ready(function() {
     requestKey(); */
 
     //API code TO SEND THE USER NAME AND SCORE TO API, RECURSIVE FUNCTION TO FIX FAILS
-    function getUserId (numberOfTries = 5) {
+    function getUserId (numberOfTries = 8) {
         if (numberOfTries < 1 ) {
-            console.log(`We tried 5 times and did get fail anyways.`);
+            console.log(`We tried 8 times and did get fail anyways.`);
             return;
         }
 
@@ -63,9 +63,9 @@ $(document).ready(function() {
 
 
     //API code to get the data of user and score from the api
-    function viewHighscore (numberOfTries = 5) {
+    function viewHighscore (numberOfTries = 8) {
         if (numberOfTries < 1 ) {
-            console.log(`We tried 5 times and did get fail anyways.`);
+            console.log(`We tried 8 times and did get fail anyways.`);
             return;
         }
 
@@ -88,18 +88,18 @@ $(document).ready(function() {
         const obj = JSON.parse(response);
 
         if (obj.status === 'success') {
+            userList = [];
             obj.data.forEach(function(user) {
-                userList = [];
                 userList.push({userName: user.title, score: user.author});
                 console.log(userList);
             })
             //write out the name and score to the score board
             $('#winnerName').html(userList[0].userName);
             $('#winnerScore').html(userList[0].score);
-            /*$('#secondName').html(userList[1].userName);
+            $('#secondName').html(userList[1].userName);
             $('#secondScore').html(userList[1].score);
             $('#thirdName').html(userList[2].userName);
-            $('#thirdScore').html(userList[2].score);*/
+            $('#thirdScore').html(userList[2].score);
 
         } else {
            viewHighscore(numberOfTries - 1);
@@ -108,9 +108,9 @@ $(document).ready(function() {
 
 
     //to UPDATE points
-    function updatePoints (numberOfTries = 5) {
+    function updatePoints (numberOfTries = 8) {
         if (numberOfTries < 1 ) {
-            console.log(`We tried 5 times and did get fail anyways.`);
+            console.log(`We tried 8 times and did get fail anyways.`);
             return;
         }
 
@@ -187,17 +187,10 @@ $(document).ready(function() {
         }
 });
 
-
-
-
-
   //implementera QUIZ API
-
 
     $('#newGameButton').click(function(event) {
         viewHighscore();
-
-
 
         const url = 'https://opentdb.com/api.php?amount=10';
 		const settings = {
