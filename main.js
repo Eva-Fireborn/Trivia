@@ -215,6 +215,7 @@ $(document).ready(function() {
     $('#startOver').click(function(event) {
         $('#congratsDiv').hide();
         newGameFunction();
+        isPaused = true;
     })
     
     function newGameFunction() {
@@ -340,6 +341,7 @@ $(document).ready(function() {
           $('#correct').css('display', 'none');
           $('#wrong').css('display', 'none');
           viewHighscore();
+          isPaused = false;
       }
 
     }; //functon nextQuestion ends here.
