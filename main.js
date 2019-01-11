@@ -59,7 +59,19 @@ $(document).ready(function() {
         } else {
             getUserId(numberOfTries - 1);
         }
-    }
+    };
+
+    $('#changeUserName').click(event => {
+      $('.content').css('display', 'block');
+      $('.background').css('display', 'block');
+      isPaused = false;
+      $('#optionContent').hide();
+
+    });
+
+    $('#optionMeny').click(event =>{
+      $('#optionContent').toggle();
+    })
 
 
     //API code to get the data of user and score from the api
@@ -86,7 +98,7 @@ $(document).ready(function() {
 
     function whenResponseIsIn2(response, numberOfTries) {
         const obj = JSON.parse(response);
-
+        console.log('api lista', obj);
         if (obj.status === 'success') {
             userList = [];
             obj.data.forEach(function(user) {
@@ -126,6 +138,58 @@ $(document).ready(function() {
            viewHighscore(numberOfTries - 1);
         }
     };
+
+    //Funktion remove user.
+
+    function deleteUser(numberOfTries=8){
+
+      if (numberOfTries < 1 ) {
+          console.log(`We tried 8 times and did get fail anyways.`);
+          return;
+      }
+
+      const settings = {
+          method: 'GET',
+          data: {
+              op: 'delete',
+              key: apiKey,
+              id: userId
+          }
+      }
+
+      $.ajax(url, settings)
+      .done (response => whenResponseIsIn4(response, numberOfTries))
+      .always(function(response) {
+          console.log(response);
+      })
+  };
+
+  function whenResponseIsIn4(response, numberOfTries) {
+      let obj = JSON.parse(response);
+      if (obj.status === 'success') {
+          console.log('Delete is a go!', obj);
+          localStorage.removeItem('userId');
+          localStorage.removeItem('username');
+          localStorage.removeItem('totalPoints');
+          totalPoints = 0;
+          username = localStorage.getItem('username');
+          userId = localStorage.getItem('userId');
+          $('.content').css('display', 'block');
+          $('.background').css('display', 'block');
+          isPaused=false;
+
+      } else {
+          deleteUser(numberOfTries - 1);
+      }
+  };
+
+    $('#removeUserName').click(event =>{
+
+      deleteUser();
+      $('#optionContent').hide();
+
+    });
+
 
 
     //to UPDATE points
@@ -189,7 +253,41 @@ $(document).ready(function() {
     /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
     $('#nextPage').click(event => {
 
-        if ($('#nameInput').val() !== ""){
+      if ($('#nameInput').val() === ""){
+
+        $('.warningSpan').text('Warning, you may not proceed without a username!');
+
+      }else  if(userId === null){
+          let value = $('#nameInput').val();
+          localStorage.setItem('username', value);
+          username = value;
+          $('.content').css('display', 'none');
+          $('.background').css('display', 'none');
+          isPaused=true;
+          changeFunText();
+          $('.warningSpan').text('Warning!');
+          getUserId();
+          viewHighscore();
+          $('#nameInput').val("");
+          console.log('else if is on!');
+      }else{
+        let value = $('#nameInput').val();
+        localStorage.setItem('username', value);
+        username = value;
+        updatePoints()
+        $('.content').css('display', 'none');
+        $('.background').css('display', 'none');
+        isPaused=true;
+        changeFunText();
+        viewHighscore();
+        $('.warningSpan').text('Warning!');
+        $('#nameInput').val("");
+        console.log('else is on!');
+      };
+
+    });
+
+      /*  if ($('#nameInput').val() !== ""){
             let value = $('#nameInput').val();
             localStorage.setItem('username', value);
             username = value;
@@ -201,9 +299,10 @@ $(document).ready(function() {
             getUserId();
             viewHighscore();
         } else {
+
             $('.warningSpan').text('Warning, you may not proceed without a username!');
         }
-});
+});*/
 
 
   //implementera QUIZ API
@@ -252,6 +351,9 @@ $(document).ready(function() {
             //console.log(response);
         });
     };
+
+
+
 
 
 

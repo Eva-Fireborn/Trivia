@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trivia</title>
-    <link href="style.css" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-    <script
-        src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" src="main.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Notable" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Notable|Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trivia</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="main.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Notable" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Notable|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-
-
-
-
-        <img id="logotype" src = "pictures\trivialog5.png" alt = "slogan">
-        <h1 id="quizName">The Quiz Craft</h1>
-        <span id="welcomeBack"></span>
-
-
-
-
-
-    </header>
+  <header>
+    <img id="logotype" src="pictures\trivialog5.png" alt="slogan">
+    <h1 id="quizName">The Quiz Craft</h1>
+    <span id="welcomeBack"></span>
+    <img id="optionMeny" src="pictures\hamburgermeny.png" alt="Options">
+    <div id="optionContent">
+      <ul>
+        <li id="changeUserName">Change name</li>
+        <li id="removeUserName">Delete account</li>
+      </ul>
+    </div>
+  </header>
+  
     <main>
         <div class="newGame">
             <p id="startWarning">Start a new game?</p>
@@ -88,14 +86,16 @@
             <div id="allTimePoints">0</div>
 
 
-        </div>
-    </aside>
-    <div class="background"></div>
-    <div class="content">
-        <img src="atom.png" class="thinkingImg">
-        <p class="warning"><span class="warningSpan">Warning!</span></p> <p class="warning">Might cause elevated sence of IQ or it might completely destroy self confidence. Proceed with caution! </p>
-        <input id="nameInput" type="text" placeholder="Enter your name here">
-        <button id="nextPage">Try yourself</button>
     </div>
+  </aside>
+  <div class="background"></div>
+  <div class="content">
+    <img src="atom.png" class="thinkingImg">
+    <p class="warning"><span class="warningSpan">Warning!</span></p>
+    <p class="warning">Might cause elevated sence of IQ or it might completely destroy self confidence. Proceed with caution! </p>
+    <input id="nameInput" type="text" placeholder="Enter your name here">
+    <button id="nextPage">Try yourself</button>
+  </div>
 </body>
+
 </html>
