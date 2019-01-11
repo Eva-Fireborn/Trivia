@@ -90,30 +90,31 @@ $(document).ready(function() {
         if (obj.status === 'success') {
             userList = [];
             obj.data.forEach(function(user) {
-                
-                userList.push({userName: user.title, score: user.author});
-
-                console.log('user list is: ', userList);
-
-            })
-
-            
-            //THE FUNCTION TO SORT THE USER SCORES
-
-
-
+                userList.push({userName: user.title, score: Number(user.author)});
+            });
+            console.log(userList);
+            let sortByProperty = function(prop) {
+                return function(a,b) {
+                    if (typeof a[prop] == 'number') {
+                        return (b[prop] - a[prop]);
+                    } else {
+                        return ((b[prop] < a[prop]) ? -1 : ((b[prop] > a[prop]) ? 1 : 0));
+                    }
+                };
+            };
+            let highscore = userList.sort(sortByProperty('score'));
+            console.log(highscore);
             //write out the name and score to the score board
-            $('#winnerName').html(userList[0].userName);
-            $('#winnerScore').html(userList[0].score);
-            $('#secondName').html(userList[1].userName);
-            $('#secondScore').html(userList[1].score);
-            $('#thirdName').html(userList[2].userName);
-            $('#thirdScore').html(userList[2].score);
-           
+            $('#winnerName').html(highscore[0].userName);
+            $('#winnerScore').html(highscore[0].score);
+            $('#secondName').html(highscore[1].userName);
+            $('#secondScore').html(highscore[1].score);
+            $('#thirdName').html(highscore[2].userName);
+            $('#thirdScore').html(highscore[2].score);
         } else {
            viewHighscore(numberOfTries - 1);
         }
-    }
+    };
 
 
     //to UPDATE points
@@ -168,6 +169,7 @@ $(document).ready(function() {
         $('.background').css('display', 'none');
         isPaused = true;
         changeFunText();
+        viewHighscore();
     } else {
         $('.content').css('display', 'block');
         $('.background').css('display', 'block');
@@ -185,16 +187,11 @@ $(document).ready(function() {
             isPaused=true;
             changeFunText();
             $('.warningSpan').text('Warning!');
-
-
             getUserId();
-
-
-
+            viewHighscore();
         } else {
             $('.warningSpan').text('Warning, you may not proceed without a username!');
         }
-	
   })
 
 
