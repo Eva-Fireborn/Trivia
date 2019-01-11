@@ -111,11 +111,10 @@ $(document).ready(function() {
             $('#secondScore').html(highscore[1].score);
             $('#thirdName').html(highscore[2].userName);
             $('#thirdScore').html(highscore[2].score);
-           
         } else {
            viewHighscore(numberOfTries - 1);
         }
-    }
+    };
 
 
     //to UPDATE points
