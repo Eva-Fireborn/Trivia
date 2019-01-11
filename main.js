@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 
     /*//API for user name and score
-    function requestKey (numberOfTries = 5) {
+    function requestKey (numberOfTries = 8) {
         const settings = {
             method: 'GET',
         }
@@ -25,19 +25,19 @@ $(document).ready(function() {
     requestKey(); */
 
     //API code TO SEND THE USER NAME AND SCORE TO API, RECURSIVE FUNCTION TO FIX FAILS
-    function getUserId (numberOfTries = 5) {
+    function getUserId (numberOfTries = 8) {
         if (numberOfTries < 1 ) {
-            console.log(`We tried 5 times and did get fail anyways.`);
-            return; 
+            console.log(`We tried 8 times and did get fail anyways.`);
+            return;
         }
-       
+
         const settings = {
             method: 'GET',
             data: {
                 op: 'insert',
                 key: apiKey,
                 title: username,
-                author: totalPoints 
+                author: totalPoints
             }
         }
 
@@ -59,14 +59,26 @@ $(document).ready(function() {
         } else {
             getUserId(numberOfTries - 1);
         }
-    }
+    };
 
-    
+    $('#changeUserName').click(event => {
+      $('.content').css('display', 'block');
+      $('.background').css('display', 'block');
+      isPaused = false;
+      $('#optionContent').hide();
+
+    });
+
+    $('#optionMeny').click(event =>{
+      $('#optionContent').toggle();
+    })
+
+
     //API code to get the data of user and score from the api
-    function viewHighscore (numberOfTries = 5) {
+    function viewHighscore (numberOfTries = 8) {
         if (numberOfTries < 1 ) {
-            console.log(`We tried 5 times and did get fail anyways.`);
-            return; 
+            console.log(`We tried 8 times and did get fail anyways.`);
+            return;
         }
 
         const settings = {
@@ -86,10 +98,12 @@ $(document).ready(function() {
 
     function whenResponseIsIn2(response, numberOfTries) {
         const obj = JSON.parse(response);
-        
+        console.log('api lista', obj);
         if (obj.status === 'success') {
             userList = [];
             obj.data.forEach(function(user) {
+
+
                 userList.push({userName: user.title, score: Number(user.author)});
             });
             console.log('userList: ', userList);
@@ -111,17 +125,78 @@ $(document).ready(function() {
             $('#secondScore').html(highscore[1].score);
             $('#thirdName').html(highscore[2].userName);
             $('#thirdScore').html(highscore[2].score);
+
+            for (let i=0; i <highscore.length; i++) {
+                if (highscore[i].userName === username) {
+
+                    $('#userPlace').html(i +1);
+                }
+            };
+           
+
         } else {
            viewHighscore(numberOfTries - 1);
         }
     };
 
+    //Funktion remove user.
+
+    function deleteUser(numberOfTries=8){
+
+      if (numberOfTries < 1 ) {
+          console.log(`We tried 8 times and did get fail anyways.`);
+          return;
+      }
+
+      const settings = {
+          method: 'GET',
+          data: {
+              op: 'delete',
+              key: apiKey,
+              id: userId
+          }
+      }
+
+      $.ajax(url, settings)
+      .done (response => whenResponseIsIn4(response, numberOfTries))
+      .always(function(response) {
+          console.log(response);
+      })
+  };
+
+  function whenResponseIsIn4(response, numberOfTries) {
+      let obj = JSON.parse(response);
+      if (obj.status === 'success') {
+          console.log('Delete is a go!', obj);
+          localStorage.removeItem('userId');
+          localStorage.removeItem('username');
+          localStorage.removeItem('totalPoints');
+          totalPoints = 0;
+          username = localStorage.getItem('username');
+          userId = localStorage.getItem('userId');
+          $('.content').css('display', 'block');
+          $('.background').css('display', 'block');
+          isPaused=false;
+
+      } else {
+          deleteUser(numberOfTries - 1);
+      }
+  };
+
+    $('#removeUserName').click(event =>{
+
+      deleteUser();
+      $('#optionContent').hide();
+
+    });
+
+
 
     //to UPDATE points
-    function updatePoints (numberOfTries = 5) {
+    function updatePoints (numberOfTries = 8) {
         if (numberOfTries < 1 ) {
-            console.log(`We tried 5 times and did get fail anyways.`);
-            return; 
+            console.log(`We tried 8 times and did get fail anyways.`);
+            return;
         }
 
         const settings = {
@@ -177,8 +252,42 @@ $(document).ready(function() {
     }
     /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
     $('#nextPage').click(event => {
-        
-        if ($('#nameInput').val() !== ""){
+
+      if ($('#nameInput').val() === ""){
+
+        $('.warningSpan').text('Warning, you may not proceed without a username!');
+
+      }else  if(userId === null){
+          let value = $('#nameInput').val();
+          localStorage.setItem('username', value);
+          username = value;
+          $('.content').css('display', 'none');
+          $('.background').css('display', 'none');
+          isPaused=true;
+          changeFunText();
+          $('.warningSpan').text('Warning!');
+          getUserId();
+          viewHighscore();
+          $('#nameInput').val("");
+          console.log('else if is on!');
+      }else{
+        let value = $('#nameInput').val();
+        localStorage.setItem('username', value);
+        username = value;
+        updatePoints()
+        $('.content').css('display', 'none');
+        $('.background').css('display', 'none');
+        isPaused=true;
+        changeFunText();
+        viewHighscore();
+        $('.warningSpan').text('Warning!');
+        $('#nameInput').val("");
+        console.log('else is on!');
+      };
+
+    });
+
+      /*  if ($('#nameInput').val() !== ""){
             let value = $('#nameInput').val();
             localStorage.setItem('username', value);
             username = value;
@@ -190,20 +299,25 @@ $(document).ready(function() {
             getUserId();
             viewHighscore();
         } else {
+
             $('.warningSpan').text('Warning, you may not proceed without a username!');
         }
-  })
-
+});*/
 
 
   //implementera QUIZ API
 
-
     $('#newGameButton').click(function(event) {
-        viewHighscore();
-        
-        
-       
+        newGameFunction();
+    });
+
+    $('#startOver').click(function(event) {
+        $('#congratsDiv').hide();
+        newGameFunction();
+        isPaused = true;
+    })
+    
+    function newGameFunction() {
         const url = 'https://opentdb.com/api.php?amount=10';
 		const settings = {
 			method: 'GET',
@@ -220,6 +334,8 @@ $(document).ready(function() {
             changeBackground();
             changeFunText();
             todayPoints = 0;
+            
+            $('#todayPoints').html(todayPoints);
 
             currentGame = response.results;
             $('#startWarning').html('Start a new game?');
@@ -234,11 +350,13 @@ $(document).ready(function() {
 		.always(function(response) {
             //console.log(response);
         });
-    });
+    };
 
 
 
-   
+
+
+
 
 
     //When you choose an answer it counts your points
@@ -289,10 +407,6 @@ $(document).ready(function() {
     });
 
 
-
-    
-
-      
      //function changeFunText som ger meddelande till användaren
 
     function changeFunText (number=4) {
@@ -314,7 +428,6 @@ $(document).ready(function() {
         };//end fuction changeFunText.
 
 
-
     function nextQuestion(){
       //When user press next, next question will appear.
       if(questionIndex <= 8){
@@ -324,10 +437,13 @@ $(document).ready(function() {
       }else{
           questionIndex = -1;
           updatePoints();
-          $('.newGame').css('display', 'block');
+          $('#congratsDiv').show();
+          $('.newGame').css('display', 'none');
           $('.trivia').css('display', 'none');
           $('#correct').css('display', 'none');
           $('#wrong').css('display', 'none');
+          viewHighscore();
+          isPaused = false;
       }
 
     }; //functon nextQuestion ends here.
@@ -335,10 +451,10 @@ $(document).ready(function() {
 
     //Tillhör animationen
 
-  
+
 
   const rhombus = '<svg viewBox="0 0 13 14"><path class="rhombus" d="M5.9,1.2L0.7,6.5C0.5,6.7,0.5,7,0.7,7.2l5.2,5.4c0.2,0.2,0.5,0.2,0.7,0l5.2-5.4 C12,7,12,6.7,11.8,6.5L6.6,1.2C6.4,0.9,6.1,0.9,5.9,1.2L5.9,1.2z M3.4,6.5L6,3.9c0.2-0.2,0.5-0.2,0.7,0l2.6,2.6 c0.2,0.2,0.2,0.5,0,0.7L6.6,9.9c-0.2,0.2-0.5,0.2-0.7,0L3.4,7.3C3.2,7.1,3.2,6.8,3.4,6.5L3.4,6.5z" /></svg>'
-  
+
   const pentahedron = '<svg viewBox="0 0 561.8 559.4"><path class="pentahedron" d="M383.4,559.4h-204l-2.6-0.2c-51.3-4.4-94-37-108.8-83l-0.2-0.6L6,276.7l-0.2-0.5c-14.5-50,3.1-102.7,43.7-131.4 L212.1,23C252.4-7.9,310.7-7.9,351,23l163.5,122.5l0.4,0.3c39,30.3,56,82.6,42.2,130.3l-0.3,1.1l-61.5,198 C480.4,525.6,435.5,559.4,383.4,559.4z M185.5,439.4h195.2l61.1-196.8c0-0.5-0.3-1.6-0.7-2.1L281.5,120.9L120.9,241.2 c0,0.3,0.1,0.7,0.2,1.2l60.8,195.8C182.5,438.5,183.7,439.1,185.5,439.4z M441,240.3L441,240.3L441,240.3z"/></svg>'
   const x = '<svg viewBox="0 0 12 12"> <path class="x" d="M10.3,4.3H7.7V1.7C7.7,0.8,7,0,6,0S4.3,0.8,4.3,1.7v2.5H1.7C0.8,4.3,0,5,0,6s0.8,1.7,1.7,1.7h2.5v2.5 C4.3,11.2,5,12,6,12s1.7-0.8,1.7-1.7V7.7h2.5C11.2,7.7,12,7,12,6S11.2,4.3,10.3,4.3z"/></svg>'
 
@@ -418,6 +534,7 @@ class Particle{
       this.scale = 0.5 + Math.random()
       this.siner = 200 * Math.random()
     }
+
 
     destroy(){
       this.item.remove()
