@@ -92,7 +92,7 @@ $(document).ready(function() {
             obj.data.forEach(function(user) {
                 userList.push({userName: user.title, score: Number(user.author)});
             });
-            console.log(userList);
+            console.log('userList: ', userList);
             let sortByProperty = function(prop) {
                 return function(a,b) {
                     if (typeof a[prop] == 'number') {
@@ -103,7 +103,7 @@ $(document).ready(function() {
                 };
             };
             let highscore = userList.sort(sortByProperty('score'));
-            console.log(highscore);
+            console.log('highscore list; ', highscore);
             //write out the name and score to the score board
             $('#winnerName').html(highscore[0].userName);
             $('#winnerScore').html(highscore[0].score);
