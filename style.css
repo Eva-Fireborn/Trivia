@@ -1,11 +1,15 @@
 body {
     background-color: #D2D4BC;
+}
+.container {
     display: grid;
     grid-template-rows: auto auto;
     grid-template-columns: auto auto;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    width: 100%;
+    height: auto;
 }
 /*CSS för header*/
 header {
@@ -243,6 +247,7 @@ aside {
     position: relative;
     font-size: 20px;
     font-family: fantasy;
+    width: 125px;
 }
 .todayScore {
     left: 565px;
