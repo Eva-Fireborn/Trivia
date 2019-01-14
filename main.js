@@ -167,7 +167,7 @@ $(document).ready(function() {
                     $('#userPlace').html(i +1);
                 }
             };
-           
+
 
         } else {
            viewHighscore(numberOfTries - 1);
@@ -268,7 +268,7 @@ $(document).ready(function() {
     /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
     $('#nextPage').click(event => {
         let value = String($('#nameInput').val());
-        
+
       if (value === ""){
         $('.warningSpan').text('Warning, you may not proceed without a username!');
       }else  if(userId === null){
@@ -379,7 +379,7 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
         newGameFunction();
         isPaused = true;
     })
-    
+
     function newGameFunction() {
         const url = 'https://opentdb.com/api.php?amount=10';
 		const settings = {
@@ -396,7 +396,11 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             changeBackground();
             changeFunText();
             todayPoints = 0;
+
+
+
             localStorage.setItem('todayPoints', todayPoints);
+
             $('#todayPoints').html(todayPoints);
             currentGame = response.results;
             localStorage.setItem('currentGame', JSON.stringify(response.results));
@@ -414,14 +418,7 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
         });
     };
 
-
-
-
-
-
-
-
-    //When you choose an answer it counts your points
+  //When you choose an answer it counts your points
     $('#trueButton').click(function(event) {
         if (currentGame[questionIndex].correct_answer === 'True') {
             $('.trivia').hide();
@@ -494,6 +491,7 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
 
     function nextQuestion(){
       //When user press next, next question will appear.
+      
       if(questionIndex <= 8){
         questionIndex++;
         localStorage.setItem('questionIndex', questionIndex);

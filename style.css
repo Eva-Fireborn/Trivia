@@ -1,12 +1,16 @@
 body {
     background-color: #D2D4BC;
+}
+.container {
     display: grid;
     /*try width: 100%;*/
     grid-template-rows: auto auto;
     grid-template-columns: auto auto;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    width: 100%;
+    height: auto;
 }
 /*CSS för header*/
 header {
@@ -44,8 +48,9 @@ header {
 }
 #optionMeny{
   height: 50px;
+  display: inline-block;
   position: absolute;
-  right: 40px;
+  right: 30px;
   top: 40px;
   cursor: pointer;
 }
@@ -54,7 +59,6 @@ header {
   display: none;
 }
 ul{
-
   list-style: none;
   background-color: #F7F6E7;
   width: 200px;
@@ -244,6 +248,7 @@ aside {
     position: relative;
     font-size: 20px;
     font-family: fantasy;
+    width: 125px;
 }
 .todayScore {
     left: 565px;
