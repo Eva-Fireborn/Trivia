@@ -133,6 +133,7 @@ main {
 /*CSS för rätt svar div*/
 #correct {
     display:none;
+    background-color: #bff0ff;
 }
 #correct img {
     height: 200px;
@@ -156,6 +157,7 @@ main {
 /*CSS för fel svar div*/
 #wrong {
     display:none;
+    background-color: white;
 }
 #wrong img {
     height: 200px;
@@ -263,7 +265,7 @@ aside {
     width: 560px;
     height: 550px;
     text-align: center;
-    background-color: #F7F6E7;
+    /*background-color: #F7F6E7;*/
     border-radius: 100%;
     position: relative;
     top: -130px;
@@ -274,6 +276,10 @@ aside {
 
 #congratsDiv {
     display: none;
+    background-color: #F7F6E7;
+}
+.newGame {
+    background-color: #F7F6E7;
 }
 #congratsDiv img {
     width: 350px;
