@@ -390,7 +390,6 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
 		const settings = {
 			method: 'GET',
 			data: {
-                difficulty: 'easy',
                 type: 'boolean'
 			},
 		}
