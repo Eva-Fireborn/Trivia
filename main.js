@@ -10,7 +10,7 @@ $(document).ready(function() {
     const url = 'https://www.forverkliga.se/JavaScript/api/crud.php';
     let userId = localStorage.getItem('userId');
     let userList = [];
-
+    let tryUsername;
 
     /*//API for user name and score
     function requestKey (numberOfTries = 8) {
@@ -106,7 +106,7 @@ $(document).ready(function() {
 
                 userList.push({userName: user.title, score: Number(user.author)});
             });
-            console.log(userList);
+            console.log('userList: ', userList);
             let sortByProperty = function(prop) {
                 return function(a,b) {
                     if (typeof a[prop] == 'number') {
@@ -117,7 +117,7 @@ $(document).ready(function() {
                 };
             };
             let highscore = userList.sort(sortByProperty('score'));
-            console.log(highscore);
+            console.log('highscore list; ', highscore);
             //write out the name and score to the score board
             $('#winnerName').html(highscore[0].userName);
             $('#winnerScore').html(highscore[0].score);
@@ -252,57 +252,105 @@ $(document).ready(function() {
     }
     /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
     $('#nextPage').click(event => {
-
-      if ($('#nameInput').val() === ""){
-
+        let value = String($('#nameInput').val());
+        
+      if (value === ""){
         $('.warningSpan').text('Warning, you may not proceed without a username!');
-
       }else  if(userId === null){
-          let value = $('#nameInput').val();
-          localStorage.setItem('username', value);
-          username = value;
-          $('.content').css('display', 'none');
-          $('.background').css('display', 'none');
-          isPaused=true;
-          changeFunText();
-          $('.warningSpan').text('Warning!');
-          getUserId();
-          viewHighscore();
-          $('#nameInput').val("");
-          console.log('else if is on!');
+        checkIfUserNameExists(value, 8);
       }else{
-        let value = $('#nameInput').val();
-        localStorage.setItem('username', value);
-        username = value;
-        updatePoints()
-        $('.content').css('display', 'none');
-        $('.background').css('display', 'none');
-        isPaused=true;
-        changeFunText();
-        viewHighscore();
-        $('.warningSpan').text('Warning!');
-        $('#nameInput').val("");
-        console.log('else is on!');
+        console.log('Provar else satsen')
+        checkIfUserNameExists2(value, 8);
       };
-
     });
+    //Kollar om användarnamnet är upptaget för ny användare
+    function checkIfUserNameExists (name, numberOfTries = 8) {
+        if (numberOfTries < 1 ) {
+            console.log(`We tried 8 times and did get fail anyways.`);
+            return;
+        }
+        const settings = {
+            method: 'GET',
+            data: {
+                op: 'select',
+                key: apiKey
+            }
+        }
+        $.ajax(url, settings)
+        .done (response => whenResponseIsIncheckIfUserNameExists(response, name, numberOfTries))
+    };
 
-      /*  if ($('#nameInput').val() !== ""){
-            let value = $('#nameInput').val();
-            localStorage.setItem('username', value);
-            username = value;
+    function whenResponseIsIncheckIfUserNameExists(response, name, numberOfTries) {
+        const obj = JSON.parse(response);
+        let doesUsernameExists=false;
+        if (obj.status === 'success') {
+            for (let i=0; i <obj.data.length; i++) {
+                if (obj.data[i].title === name) {
+                    $('.warningSpan').text('Username is taken, try another!');
+                    doesUsernameExists = true;
+                   break;
+                }
+            };
+            if(!doesUsernameExists){
+                localStorage.setItem('username', name);
+                username = name;
+                $('.content').css('display', 'none');
+                $('.background').css('display', 'none');
+                isPaused=true;
+                changeFunText();
+                $('.warningSpan').text('Warning!');
+                getUserId();
+                viewHighscore();
+                $('#nameInput').val("");
+            }
+        } else {
+            checkIfUserNameExists(name, numberOfTries - 1);
+        }
+    };
+ //Kollar om användarnamnet är upptaget för användare som vill byta namn
+ function checkIfUserNameExists2 (name, numberOfTries = 8) {
+    if (numberOfTries < 1 ) {
+        console.log(`We tried 8 times and did get fail anyways.`);
+        return;
+    }
+    const settings = {
+        method: 'GET',
+        data: {
+            op: 'select',
+            key: apiKey
+        }
+    }
+    $.ajax(url, settings)
+    .done (response => whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries))
+};
+
+function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
+    const obj = JSON.parse(response);
+    let doesUsernameExists=false;
+    if (obj.status === 'success') {
+        for (let i=0; i <obj.data.length; i++) {
+            if (obj.data[i].title === name) {
+                $('.warningSpan').text('Username is taken, try another!');
+                doesUsernameExists = true;
+               break;
+            }
+        };
+        if(!doesUsernameExists){
+            localStorage.setItem('username', name);
+            username = name;
+            updatePoints()
             $('.content').css('display', 'none');
             $('.background').css('display', 'none');
             isPaused=true;
             changeFunText();
-            $('.warningSpan').text('Warning!');
-            getUserId();
             viewHighscore();
-        } else {
-
-            $('.warningSpan').text('Warning, you may not proceed without a username!');
+            $('.warningSpan').text('Warning!');
+            $('#nameInput').val("");
         }
-});*/
+    } else {
+        checkIfUserNameExists2(name, numberOfTries - 1);
+    }
+};
 
 
   //implementera QUIZ API
