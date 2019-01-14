@@ -99,6 +99,9 @@ main {
     font-size: 20px;
     border: none;
 }
+#newGameButton:hover{
+  cursor: pointer;
+}
 /*CSS för frågediv*/
 .trivia {
     display: none;
@@ -121,6 +124,9 @@ main {
     font-size: 20px;
     border: none;
 }
+#trueButton:hover{
+    cursor: pointer;
+}
 #falseButton {
     font-family: 'PT Sans', sans-serif;
     width: 120px;
@@ -129,7 +135,10 @@ main {
     font-size: 20px;
     background-color: #EA596A;
     border: none;
+}
 
+#falseButton:hover{
+    cursor: pointer;
 }
 /*CSS för rätt svar div*/
 #correct {
@@ -155,6 +164,9 @@ main {
     background-color: #EA596A;
     border: none;
 }
+#correctNext:hover{
+  cursor: pointer;
+}
 /*CSS för fel svar div*/
 #wrong {
     display:none;
@@ -177,6 +189,9 @@ main {
     font-size: 20px;
     background-color: #EA596A;
     border: none;
+}
+#wrongNext:hover{
+  cursor:pointer;
 }
 /*CSS för aside*/
 aside {
@@ -307,7 +322,9 @@ aside {
     background-color: #EA596A;
     border: none;
 }
-
+#startOver:hover{
+  cursor: pointer;
+}
 
 .newGame #startWarning, .newGame #newGameButton {
     position: relative;
@@ -345,6 +362,7 @@ aside {
 }
 #nextPage:hover {
   background-color: #FF5B61;
+  cursor: pointer;
 }
 .warning {
   width: 500px;
