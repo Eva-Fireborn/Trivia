@@ -436,6 +436,8 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             $('#todayPoints').html(todayPoints);
             localStorage.setItem('totalPoints', totalPoints);
             $('#allTimePoints').html(totalPoints);
+            updatePoints();
+            viewHighscore();
         } else {
             $('.trivia').hide();
             $('#correct').hide();
@@ -453,6 +455,8 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             $('#todayPoints').html(todayPoints);
             localStorage.setItem('totalPoints', totalPoints);
             $('#allTimePoints').html(totalPoints);
+            updatePoints();
+            viewHighscore();
         } else {
             $('.trivia').hide();
             $('#correct').hide();
