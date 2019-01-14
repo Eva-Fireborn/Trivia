@@ -1,7 +1,5 @@
 body {
     background-color: #D2D4BC;
-}
-.container {
     display: grid;
     /*try width: 100%;*/
     grid-template-rows: auto auto;
