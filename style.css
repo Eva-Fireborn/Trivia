@@ -68,6 +68,7 @@ ul{
   z-index: 2;
   top: 100px;
   font-family: 'Roboto', sans-serif;
+  border-radius: 3px;
 }
 li:hover{
   background-color:#FCF3CF;
@@ -100,6 +101,7 @@ main {
     background-color: #EA596A;
     font-size: 20px;
     border: none;
+    border-radius: 3px;
 }
 #newGameButton:hover{
   cursor: pointer;
@@ -125,6 +127,7 @@ main {
     background-color: #EA596A;
     font-size: 20px;
     border: none;
+    border-radius: 3px;
 }
 #trueButton:hover{
     cursor: pointer;
@@ -137,6 +140,7 @@ main {
     font-size: 20px;
     background-color: #EA596A;
     border: none;
+    border-radius: 3px;
 }
 
 #falseButton:hover{
@@ -165,6 +169,7 @@ main {
     font-size: 20px;
     background-color: #EA596A;
     border: none;
+    border-radius: 3px;
 }
 #correctNext:hover{
   cursor: pointer;
@@ -191,6 +196,7 @@ main {
     font-size: 20px;
     background-color: #EA596A;
     border: none;
+    border-radius: 3px;
 }
 #wrongNext:hover{
   cursor:pointer;
@@ -324,6 +330,7 @@ aside {
     font-size: 20px;
     background-color: #EA596A;
     border: none;
+    border-radius: 3px;
 }
 #startOver:hover{
   cursor: pointer;
