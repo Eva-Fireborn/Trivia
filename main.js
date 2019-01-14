@@ -3,15 +3,50 @@ $(document).ready(function() {
     let totalPoints = 0;
     let isPaused = false;
     let currentGame= [{"category":"Vehicles","type":"boolean","difficulty":"easy","question":"In 1993 Swedish car manufacturer Saab experimented with replacing the steering wheel with a joystick in a Saab 9000.","correct_answer":"True","incorrect_answers":["False"]},{"category":"Entertainment: Video Games","type":"boolean","difficulty":"easy","question":"The main character in the &quot;Half-Life&quot; franchise is named Morgan Freeman.","correct_answer":"False","incorrect_answers":["True"]},{"category":"History","type":"boolean","difficulty":"easy","question":"The Tiananmen Square protests of 1989 were held in Hong Kong.","correct_answer":"False","incorrect_answers":["True"]},{"category":"Geography","type":"boolean","difficulty":"easy","question":"Alaska is the largest state in the United States.","correct_answer":"True","incorrect_answers":["False"]},{"category":"Entertainment: Video Games","type":"boolean","difficulty":"easy","question":"Tetris is the #1 best-selling video game of all-time.","correct_answer":"True","incorrect_answers":["False"]},{"category":"Geography","type":"boolean","difficulty":"easy","question":"Toronto is the capital city of the North American country of Canada.","correct_answer":"False","incorrect_answers":["True"]},{"category":"Animals","type":"boolean","difficulty":"easy","question":"Rabbits are rodents.","correct_answer":"False","incorrect_answers":["True"]},{"category":"Entertainment: Film","type":"boolean","difficulty":"easy","question":"In the original Star Wars trilogy, Alec Guinness provided the voice for Darth Vader.","correct_answer":"False","incorrect_answers":["True"]},{"category":"History","type":"boolean","difficulty":"easy","question":"In World War ll, Great Britian used inflatable tanks on the ports of Great Britain to divert Hitler away from Normandy\/D-day landing.","correct_answer":"True","incorrect_answers":["False"]},{"category":"Sports","type":"boolean","difficulty":"easy","question":"In Rugby League, performing a &quot;40-20&quot; is punished by a free kick for the opposing team.","correct_answer":"False","incorrect_answers":["True"]}];
-    let todayPoints = 0;
+    let todayPoints = localStorage.getItem('todayPoints');
     let username = localStorage.getItem('username');
-    let questionIndex = -1;
+    let questionIndex = localStorage.getItem('questionIndex');
     const apiKey = 'KDw4u';
     const url = 'https://www.forverkliga.se/JavaScript/api/crud.php';
     let userId = localStorage.getItem('userId');
     let userList = [];
-    let tryUsername;
 
+    /*Kollar om en total poäng finns sparat i local storage */
+    let temporary = localStorage.getItem('totalPoints');
+    if (temporary !== null) {
+        totalPoints = temporary;
+        $('#allTimePoints').html(totalPoints);
+    } else {
+        totalPoints = 0;
+    };
+
+    /*Kollar om de finns ett sparat användarnamn */
+    if (username !== null){
+        $('.content').css('display', 'none');
+        $('.background').css('display', 'none');
+        isPaused = true;
+        changeFunText();
+        viewHighscore();
+        if(questionIndex == -1){
+            $('.newGame').show();
+        } else {
+            console.log('kör jag den hör?')
+            let temp = localStorage.getItem('currentGame');
+            currentGame = JSON.parse(temp);
+            $('.newGame').hide();
+            $('.trivia').show();
+            $('#cathegory').html(currentGame[questionIndex].category);
+            $('#question').html(currentGame[questionIndex].question);
+            changeBackground();
+            $('#todayPoints').html(todayPoints);
+            $('#allTimePoints').html(totalPoints);
+        }
+    } else {
+        $('.content').css('display', 'block');
+        $('.background').css('display', 'block');
+        isPaused = false;
+        todayPoints = 0;
+    }
     /*//API for user name and score
     function requestKey (numberOfTries = 8) {
         const settings = {
@@ -229,27 +264,7 @@ $(document).ready(function() {
 
 
 
-    /*Kollar om en total poäng finns sparat i local storage */
-    let temporary = localStorage.getItem('totalPoints');
-    if (temporary !== null) {
-        totalPoints = temporary;
-        $('#allTimePoints').html(totalPoints);
-    } else {
-        totalPoints = 0;
-    };
-
-    /*Kollar om de finns ett sparat användarnamn */
-    if (username !== null){
-        $('.content').css('display', 'none');
-        $('.background').css('display', 'none');
-        isPaused = true;
-        changeFunText();
-        viewHighscore();
-    } else {
-        $('.content').css('display', 'block');
-        $('.background').css('display', 'block');
-        isPaused = false;
-    }
+    
     /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
     $('#nextPage').click(event => {
         let value = String($('#nameInput').val());
@@ -382,10 +397,10 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             changeBackground();
             changeFunText();
             todayPoints = 0;
-            
+            localStorage.setItem('todayPoints', todayPoints);
             $('#todayPoints').html(todayPoints);
-
             currentGame = response.results;
+            localStorage.setItem('currentGame', JSON.stringify(response.results));
             $('#startWarning').html('Start a new game?');
             nextQuestion();
             } else {
@@ -413,8 +428,9 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             $('.trivia').hide();
             $('#correct').show();
             $('#wrong').hide();
-            todayPoints++ ;
-            totalPoints++ ;
+            todayPoints++;
+            totalPoints++;
+            localStorage.setItem('todayPoints', todayPoints);
             $('#todayPoints').html(todayPoints);
             localStorage.setItem('totalPoints', totalPoints);
             $('#allTimePoints').html(totalPoints);
@@ -429,8 +445,9 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             $('.trivia').hide();
             $('#correct').show();
             $('#wrong').hide();
-            todayPoints++ ;
-            totalPoints++ ;
+            todayPoints++;
+            totalPoints++;
+            localStorage.setItem('todayPoints', todayPoints);
             $('#todayPoints').html(todayPoints);
             localStorage.setItem('totalPoints', totalPoints);
             $('#allTimePoints').html(totalPoints);
@@ -480,10 +497,12 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
       //When user press next, next question will appear.
       if(questionIndex <= 8){
         questionIndex++;
+        localStorage.setItem('questionIndex', questionIndex);
         $('#cathegory').html(currentGame[questionIndex].category);
         $('#question').html(currentGame[questionIndex].question);
       }else{
           questionIndex = -1;
+          localStorage.setItem('questionIndex', questionIndex);
           updatePoints();
           $('#congratsDiv').show();
           $('.newGame').css('display', 'none');
