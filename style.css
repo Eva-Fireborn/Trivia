@@ -43,8 +43,9 @@ header {
 }
 #optionMeny{
   height: 50px;
+  display: inline-block;
   position: absolute;
-  right: 40px;
+  right: 30px;
   top: 40px;
   cursor: pointer;
 }
@@ -53,7 +54,6 @@ header {
   display: none;
 }
 ul{
-
   list-style: none;
   background-color: #F7F6E7;
   width: 200px;
