@@ -10,6 +10,55 @@ body {
     height: auto;
  
 }
+/*CSS FOR HAMBURGER BUTTON*/
+.menu-open-button:hover {
+    transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+}
+#optionMeny {
+  height: 50px;
+  display: inline-block;
+  position: absolute;
+  right: 115px;
+  top: 25px;
+  cursor: pointer;
+}
+.menu-open-button {
+   background: #FF5B61;
+   border-radius: 100%;
+   width: 60px;
+   height: 60px;
+   position: absolute;
+   text-align: center;
+   line-height: 80px;
+   transform: translate3d(0, 0, 0);
+   transition: transform ease-out 200ms;
+   z-index: 2;
+   transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+   cursor: pointer;
+   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+}
+
+.lines {
+   width: 25px;
+   height: 3px;
+   background: #D2D4BC;
+   display: block;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   margin-left: -12.5px;
+   margin-top: -1.5px;
+   transition: transform 200ms;
+}
+.line-1 {
+   transform: translate3d(0, -8px, 0);
+}
+.line-2 {
+   transform: translate3d(0, 0, 0);
+}
+.line-3 {
+   transform: translate3d(0, 8px, 0);
+}
 
 /*CSS för header*/
 header {
@@ -48,14 +97,7 @@ header {
   letter-spacing: 2px;
   font-family: 'Amatic SC', cursive;
 }
-#optionMeny{
-  height: 50px;
-  display: inline-block;
-  position: absolute;
-  right: 30px;
-  top: 30px;
-  cursor: pointer;
-}
+
 #optionContent {
     display: none;
 }
