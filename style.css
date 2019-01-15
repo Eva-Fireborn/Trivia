@@ -1,28 +1,19 @@
 body {
     background-color: #D2D4BC;
     display: grid;
-    /*try width: 100%;*/
     grid-template-rows: auto auto;
-    margin: 0px;
-    padding: 0px;
-    /*overflow: hidden;*/
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     width: 100%;
     height: auto;
-    box-sizing: border-box;
 }
-/*CSS för flexbox container*/
-.container {
-    width: 95%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    border: 2px solid black;
-    position: relative;
-    margin: auto;
-}
+
 /*CSS för header*/
 header {
     grid-row: 1;
+    grid-column: 1 / 3;
     width: 100%;
     height: 140px;
     margin-bottom: 20px;
@@ -37,47 +28,51 @@ header {
   position: relative;
   display: inline-block;
   bottom: 40px;
-  font-size: 2.em;
-  font-family: 'Notable', sans-serif;
+  font-size: 50px;
   margin-left: 20px;
   letter-spacing: 2px;
+  font-family: 'Amatic SC', cursive;
+  text-shadow: 1px 1px #F17B52;
 }
 #welcomeBack{
   display: inline-block;
   position: relative;
   float: right;
-  top: 50px;
+  top: 35px;
   margin-right: 150px;
-  font-size: 2.1em;
-  font-family: 'Roboto', sans-serif;
+  font-size: 35px;
   text-shadow: 1px 1px #F17B52;
   letter-spacing: 2px;
+  font-family: 'Amatic SC', cursive;
 }
 #optionMeny{
   height: 50px;
   display: inline-block;
   position: absolute;
   right: 30px;
-  top: 40px;
+  top: 30px;
   cursor: pointer;
 }
-
-#optionContent{
-  display: none;
+#optionContent {
+    display: none;
 }
-ul{
-  list-style: none;
-  background-color: #F7F6E7;
-  width: 200px;
-  padding: 0px;
-  margin: 0px;
-  font-size: 1.3em;
-  position: absolute;
-  right: 10px;
-  z-index: 2;
-  top: 100px;
-  font-family: 'Roboto', sans-serif;
-  border-radius: 3px;
+
+#optionContent > ul{
+    border-radius: 3px;
+    box-shadow: 9px 14px 56px 0px rgba(89,72,27,1);
+    font-family: 'Amatic SC', cursive;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    list-style: none;
+    background-color: #F7F6E7;
+    width: 200px;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    right: 10px;
+    z-index: 2;
+    top: 100px;
 }
 li:hover{
   background-color:#FCF3CF;
@@ -90,69 +85,71 @@ li{
 }
 /*CSS för main elementen*/
 main {
+    grid-column: 1;
     grid-row: 2;
-    padding-left: 20px;
-    padding-top: 85px;
+    margin: 0 auto;
 }
+
 /*CSS för nytt spel div*/
-
-
 .newGame p {
-    font-family: 'PT Sans', sans-serif;
-    font-size: 25px;
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
+    font-size: 30px;
 }
 #newGameButton {
-    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin: 20px;
-    background-color: #EA596A;
+    background-color: #FF5B61;
     font-size: 20px;
     border: none;
     border-radius: 3px;
+    transition: color 0.3s;
 }
 #newGameButton:hover{
   cursor: pointer;
+  color: white;
 }
 /*CSS för frågediv*/
 .trivia {
     display: none;
 }
-.trivia p {
-    font-family: 'PT Sans', sans-serif;
-}
-#cathegory {
-    font-size: 25px;
+#cathegory{
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
+    font-size: 30px;
 }
 #question {
     font-size: 20px;
 }
 #trueButton {
-    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin: 20px;
-    background-color: #EA596A;
+    background-color: #FF5B61;
     font-size: 20px;
     border: none;
     border-radius: 3px;
+    transition: color 0.3s;
 }
 #trueButton:hover{
     cursor: pointer;
+    color: white;
 }
 #falseButton {
-    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin: 20px;
     font-size: 20px;
-    background-color: #EA596A;
+    background-color: #FF5B61;
     border: none;
     border-radius: 3px;
+    transition: color 0.3s;
 }
 
 #falseButton:hover{
     cursor: pointer;
+    color: white;
 }
 /*CSS för rätt svar div*/
 #correct {
@@ -167,20 +164,20 @@ main {
 #correct p {
     font-size: 20px;
     margin: 0px;
-    font-family: 'PT Sans', sans-serif;
 }
 #correctNext {
-    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin-top: 15px;
     font-size: 20px;
-    background-color: #EA596A;
+    background-color: #FF5B61;
     border: none;
     border-radius: 3px;
+    transition: color 0.3s;
 }
 #correctNext:hover{
   cursor: pointer;
+  color: white;
 }
 /*CSS för fel svar div*/
 #wrong {
@@ -197,32 +194,33 @@ main {
     margin: 0px;
 }
 #wrongNext {
-    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin-top: 15px;
     font-size: 20px;
-    background-color: #EA596A;
+    background-color: #FF5B61;
     border: none;
     border-radius: 3px;
+    transition: color 0.3s;
 }
 #wrongNext:hover{
-  cursor:pointer;
+  cursor: pointer;
+  color: white;
 }
 /*CSS för aside*/
-aside {
+.asideTop {
+    grid-column: 2;
     grid-row: 2;
-    padding-right: 20px;
+    padding-right: 50px;
 }
 
 .aside {
     background-image: url("new-point-bubble.png");
     background-size: contain;
     background-repeat: no-repeat;
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 650px;
     position: relative;
-    float: right;
     display: block;
     top: -70px;
 }
@@ -235,14 +233,13 @@ aside {
     font-size: 50px;
 }
 #todayPoints {
-    left: 540px;
-    top: -40px;
+    left: 500px;
+    top: -75px;
 }
 
 #allTimePoints {
-    top: 100px;
-    left: 470px;
-    margin: 0px;
+    top: 105px;
+    left: 505px;
 }
 
 /*Leader board css*/
@@ -250,36 +247,43 @@ aside {
     width: 250px;
     color: white;
     position: relative;
-    top: 70px;
-    left: 50px;
+    top: 50px;
+    left: 35px;
     height: 200px;
     font-size: 20px;
 }
 .scoreBoardTitles {
     color: white;
     position: relative;
-    font-size: 20px;
-    font-family: fantasy;
-    margin: 0px;
+    font-size: 30px;
     width: 125px;
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
 }
 .todayScore {
-    left: 565px;
-    top: -60px;
+    left: 525px;
+    top: -90px;
 }
 .allTimeScore {
-    left: 450px;
+    left: 505px;
     top: 105px;
 }
 .tableTitle {
     position: relative;
     top: -10px;
+    left: 60px;
+}
+#winnerName, #winnerScore, #secondName, #secondScore, #thirdName, #thirdScore {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
 }
 #firstPlace, #secondPlace, #thirdPlace {
     font-weight: bold;
     font-family: fantasy;
     font-size: 20px;
     letter-spacing: 2px;
+    text-shadow: 1px 1px #F17B52;
+    font-family: 'Amatic SC', cursive;
 }
 #firstPlace {
     color: gold;
@@ -294,15 +298,15 @@ aside {
 /*TRYOUT FOR ROUND QUESTION DIVS*/
 .newGame, .trivia, #correct, #wrong, #congratsDiv {
     border: 2px solid #20D0C2;
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     padding: 20px;
-    width: 460px;
-    height: 450px;
+    width: 510px;
+    height: 500px;
     text-align: center;
-    /*background-color: #F7F6E7;*/
     border-radius: 100%;
     position: relative;
-    top: -130px;
+    margin-left: 20px;
+    top: -30px;
 }
 
 
@@ -311,6 +315,9 @@ aside {
 #congratsDiv {
     display: none;
     background-color: #F7F6E7;
+}
+.rankingDiv {
+    font-size: 20px;
 }
 .newGame {
     background-color: #F7F6E7;
@@ -321,7 +328,6 @@ aside {
 
 #congratsDiv p {
     font-size: 25px;
-    font-family: 'PT Sans', sans-serif;
 }
 #userPlace {
     color: red;
@@ -332,17 +338,19 @@ aside {
     top: 5px;
 }
 #startOver {
-    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin: 20px;
     font-size: 20px;
-    background-color: #EA596A;
+    background-color: #FF5B61;
     border: none;
     border-radius: 3px;
+    border-radius: 3px;
+    transition: color 0.3s;
 }
 #startOver:hover{
   cursor: pointer;
+  color: white;
 }
 
 .newGame #startWarning, .newGame #newGameButton {
@@ -377,7 +385,7 @@ aside {
     text-shadow: 0 1px rgb(202, 212, 216);
     text-align: center;
     transition: background-color 1s;
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 #nextPage:hover {
   background-color: #FF5B61;
@@ -387,7 +395,7 @@ aside {
   width: 500px;
   color: rgb(90, 90, 90);
   font-weight: bold;
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
 }
 .warningSpan {
@@ -405,33 +413,31 @@ aside {
     border: none;
     border-radius: 3px;
     color: #FF5B61;
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 .background {
     grid-row: 1 / 3;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: #D2D4BC;
-  /*background: radial-gradient(ellipse at center, #edf3f8 1%,#dee3e8 100%);*/
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edf3f8', endColorstr='#dee3e8',GradientType=1 );
-
+    grid-column: 1 / 3;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #D2D4BC;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edf3f8', endColorstr='#dee3e8',GradientType=1 );
 }
 .content {
   z-index: 10;
   position: absolute;
   left: 50%;
-  top: 40%;
+  top: 50%;
   transform: translateX(-50%) translateY(-50%);
   text-align: center;
 }
 
 .thinkingImg {
     z-index: 10;
-    width: 500px;
-
+    width: 400px;
 }
 
 .pentahedron {
