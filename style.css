@@ -75,6 +75,7 @@ ul{
   z-index: 2;
   top: 100px;
   font-family: 'Roboto', sans-serif;
+  border-radius: 3px;
 }
 li:hover{
   background-color:#FCF3CF;
