@@ -11,10 +11,7 @@ $(document).ready(function() {
     let userId = localStorage.getItem('userId');
     let userList = [];
 
-    
-  
-
-
+    //VAD SOM SKA LÄSAS IN NÄR MAN STARTAR IGÅNG SPELET
     /*Kollar om en total poäng finns sparat i local storage */
     let temporary = localStorage.getItem('totalPoints');
     if (temporary !== null) {
@@ -34,7 +31,6 @@ $(document).ready(function() {
         if(questionIndex == -1){
             $('.newGame').show();
         } else {
-            console.log('kör jag den hör?')
             let temp = localStorage.getItem('currentGame');
             currentGame = JSON.parse(temp);
             $('.newGame').hide();
@@ -50,18 +46,140 @@ $(document).ready(function() {
         $('.background').css('display', 'block');
         isPaused = false;
         todayPoints = 0;
+        $('#optionMeny').hide();
     }
-    /*//API for user name and score
-    function requestKey (numberOfTries = 8) {
-        const settings = {
-            method: 'GET',
-        }
-        $.ajax('//www.forverkliga.se/JavaScript/api/crud.php?requestKey', settings)
-        .always(function(response) {
-            console.log(response);
+    //ALLA KNAPPARS PROGRAMMERING
+
+    //MENYKNAPPAR
+    $('#changeUserName').click(event => {
+        $('.content').css('display', 'block');
+        $('.background').css('display', 'block');
+        isPaused = false;
+        $('#optionContent').hide();
+        $('#optionMeny').hide();
+      });
+
+      $('#optionMeny').click(event =>{
+        $('#optionContent').toggle();
+      });
+
+      $('#removeUserName').click(event =>{
+        deleteUser();
+        $('#optionContent').hide();
+        $('#optionMeny').hide();
+      });
+
+      //KNAPP FÖR FÖRSTA SIDAN
+    /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
+    $('#nextPage').click(event => {
+        let value = String($('#nameInput').val());
+      if (value === ""){
+        $('.warningSpan').text('Warning, you may not proceed without a username!');
+      }else  if(userId === null){
+        checkIfUserNameExists(value, 8);
+      }else{
+        checkIfUserNameExists2(value, 8);
+      };
+    });
+
+    //KNAPPAR FÖR NYTT SPEL
+      //Programmering för new Game button+start over button
+      $('#newGameButton').click(function(event) {
+        newGameFunction();
+    });
+
+    $('#startOver').click(function(event) {
+        $('#congratsDiv').hide();
+        newGameFunction();
+        isPaused = true;
+    })
+
+  //Programmeringen för knapparna true+false, kollar av svaret och ger poäng
+  $('#trueButton').click(function(event) {
+    if (currentGame[questionIndex].correct_answer === 'True') {
+        $('.trivia').hide();
+        $('#correct').show();
+        $('#wrong').hide();
+        todayPoints++;
+        totalPoints++;
+        localStorage.setItem('todayPoints', todayPoints);
+        $('#todayPoints').html(todayPoints);
+        localStorage.setItem('totalPoints', totalPoints);
+        $('#allTimePoints').html(totalPoints);
+        updatePoints();
+        viewHighscore();
+    } else {
+        $('.trivia').hide();
+        $('#correct').hide();
+        $('#wrong').show();
+    }
+});
+$('#falseButton').click(function(event) {
+    if (currentGame[questionIndex].correct_answer === 'False') {
+        $('.trivia').hide();
+        $('#correct').show();
+        $('#wrong').hide();
+        todayPoints++;
+        totalPoints++;
+        localStorage.setItem('todayPoints', todayPoints);
+        $('#todayPoints').html(todayPoints);
+        localStorage.setItem('totalPoints', totalPoints);
+        $('#allTimePoints').html(totalPoints);
+        updatePoints();
+        viewHighscore();
+    } else {
+        $('.trivia').hide();
+        $('#correct').hide();
+        $('#wrong').show();
+    }
+});
+    /* Vad som händer när man trycker på NEXT knappen efter du svarat på en fråga */
+    $('#wrongNext').on('click', event => {
+        $('.trivia').css('display', 'block');
+        $('#wrong').css('display', 'none');
+        nextQuestion();
+        changeBackground();
+    });
+    $('#correctNext').on('click', event => {
+        $('.trivia').css('display', 'block');
+        $('#correct').css('display', 'none');
+        nextQuestion();
+        changeBackground();
+    });
+
+
+    //ALLA FUNKTIONER FÖR SPELET
+    //Kalla på en ny omgång med API:et
+    function newGameFunction() {
+        const url = 'https://opentdb.com/api.php?amount=10';
+		const settings = {
+			method: 'GET',
+			data: {
+                type: 'boolean'
+			},
+		}
+		$.ajax(url, settings)
+		.done(function(response) {
+            if (response.response_code === 0) {
+            $('.newGame').hide();
+            $('.trivia').show();
+            changeBackground();
+            changeFunText();
+            todayPoints = 0;
+            localStorage.setItem('todayPoints', todayPoints);
+            $('#todayPoints').html(todayPoints);
+            currentGame = response.results;
+            localStorage.setItem('currentGame', JSON.stringify(response.results));
+            $('#startWarning').html('Start a new game?');
+            nextQuestion();
+            } else {
+                $('#startWarning').html('Oops! Try again!');
+            }
+        })
+		.fail(function(response) {
+            console.log(`Something failed. Message: ${response}.`);
         })
     };
-    requestKey(); */
 
     //API code TO SEND THE USER NAME AND SCORE TO API, RECURSIVE FUNCTION TO FIX FAILS
     function getUserId (numberOfTries = 8) {
@@ -69,7 +187,6 @@ $(document).ready(function() {
             console.log(`We tried 8 times and did get fail anyways.`);
             return;
         }
-
         const settings = {
             method: 'GET',
             data: {
@@ -80,39 +197,19 @@ $(document).ready(function() {
                 please:""
             }
         }
-
         $.ajax(url, settings)
         .done (response => whenResponseIsIn(response, numberOfTries))
-        .always(function(response) {
-            console.log(response);
-        })
     };
-
     function whenResponseIsIn(response, numberOfTries) {
         const obj = JSON.parse(response);
         if (obj.status === 'success') {
             //then the next function to write out name and score is on
-            console.log('Name is saved!');
             userId = obj.id;
-            console.log(`User id is: ${userId}`);
             localStorage.setItem('userId', userId);
         } else {
             getUserId(numberOfTries - 1);
         }
     };
-
-    $('#changeUserName').click(event => {
-      $('.content').css('display', 'block');
-      $('.background').css('display', 'block');
-      isPaused = false;
-      $('#optionContent').hide();
-
-    });
-
-    $('#optionMeny').click(event =>{
-      $('#optionContent').toggle();
-    })
-
 
     //API code to get the data of user and score from the api
     function viewHighscore (numberOfTries = 8) {
@@ -120,7 +217,6 @@ $(document).ready(function() {
             console.log(`We tried 8 times and did get fail anyways.`);
             return;
         }
-
         const settings = {
             method: 'GET',
             data: {
@@ -129,25 +225,16 @@ $(document).ready(function() {
                 please:""
             }
         }
-
         $.ajax(url, settings)
         .done (response => whenResponseIsIn2(response, numberOfTries))
-        .always(function(response) {
-            //console.log(response);
-        })
     };
-
     function whenResponseIsIn2(response, numberOfTries) {
         const obj = JSON.parse(response);
-        console.log('api lista', obj);
         if (obj.status === 'success') {
             userList = [];
             obj.data.forEach(function(user) {
-
-
                 userList.push({userName: user.title, score: Number(user.author)});
             });
-            console.log('userList: ', userList);
             let sortByProperty = function(prop) {
                 return function(a,b) {
                     if (typeof a[prop] == 'number') {
@@ -158,7 +245,6 @@ $(document).ready(function() {
                 };
             };
             let highscore = userList.sort(sortByProperty('score'));
-            console.log('highscore list; ', highscore);
             //write out the name and score to the score board
             $('#winnerName').html(highscore[0].userName);
             $('#winnerScore').html(highscore[0].score);
@@ -166,29 +252,22 @@ $(document).ready(function() {
             $('#secondScore').html(highscore[1].score);
             $('#thirdName').html(highscore[2].userName);
             $('#thirdScore').html(highscore[2].score);
-
             for (let i=0; i <highscore.length; i++) {
                 if (highscore[i].userName === username) {
-
                     $('#userPlace').html(i +1);
                 }
             };
-
-
         } else {
            viewHighscore(numberOfTries - 1);
         }
     };
 
-    //Funktion remove user.
-
+    //Function remove user.
     function deleteUser(numberOfTries=8){
-
       if (numberOfTries < 1 ) {
           console.log(`We tried 8 times and did get fail anyways.`);
           return;
       }
-
       const settings = {
           method: 'GET',
           data: {
@@ -198,14 +277,9 @@ $(document).ready(function() {
               please: ""
           }
       }
-
       $.ajax(url, settings)
       .done (response => whenResponseIsIn4(response, numberOfTries))
-      .always(function(response) {
-          console.log(response);
-      })
   };
-
   function whenResponseIsIn4(response, numberOfTries) {
       let obj = JSON.parse(response);
       if (obj.status === 'success') {
@@ -216,25 +290,17 @@ $(document).ready(function() {
           localStorage.removeItem('questionIndex');
           localStorage.removeItem('todayPoints');
           totalPoints = 0;
+          questionIndex = -1;
+          $('#allTimePoints').html(totalPoints);
           username = localStorage.getItem('username');
           userId = localStorage.getItem('userId');
           $('.content').css('display', 'block');
           $('.background').css('display', 'block');
           isPaused=false;
-
       } else {
           deleteUser(numberOfTries - 1);
       }
   };
-
-    $('#removeUserName').click(event =>{
-
-      deleteUser();
-      $('#optionContent').hide();
-
-    });
-
-
 
     //to UPDATE points
     function updatePoints (numberOfTries = 8) {
@@ -242,7 +308,6 @@ $(document).ready(function() {
             console.log(`We tried 8 times and did get fail anyways.`);
             return;
         }
-
         const settings = {
             method: 'GET',
             data: {
@@ -254,40 +319,18 @@ $(document).ready(function() {
                 please:""
             }
         }
-
         $.ajax(url, settings)
         .done (response => whenResponseIsIn3(response, numberOfTries))
-        .always(function(response) {
-            console.log(response);
-        })
     };
-
     function whenResponseIsIn3(response, numberOfTries) {
         const obj = JSON.parse(response);
         if (obj.status === 'success') {
-            console.log(`updated: ${response}`);
+            changeFunText();
         } else {
             updatePoints(numberOfTries - 1);
         }
-    }
+    };
 
-
-
-
-    
-    /*Sparar användarnamn om man inte har ett, man måste dock ha skrivit in någonting i rutan */
-    $('#nextPage').click(event => {
-        let value = String($('#nameInput').val());
-
-      if (value === ""){
-        $('.warningSpan').text('Warning, you may not proceed without a username!');
-      }else  if(userId === null){
-        checkIfUserNameExists(value, 8);
-      }else{
-        console.log('Provar else satsen')
-        checkIfUserNameExists2(value, 8);
-      };
-    });
     //Kollar om användarnamnet är upptaget för ny användare
     function checkIfUserNameExists (name, numberOfTries = 8) {
         if (numberOfTries < 1 ) {
@@ -305,7 +348,6 @@ $(document).ready(function() {
         $.ajax(url, settings)
         .done (response => whenResponseIsIncheckIfUserNameExists(response, name, numberOfTries))
     };
-
     function whenResponseIsIncheckIfUserNameExists(response, name, numberOfTries) {
         const obj = JSON.parse(response);
         let doesUsernameExists=false;
@@ -322,12 +364,17 @@ $(document).ready(function() {
                 username = name;
                 $('.content').css('display', 'none');
                 $('.background').css('display', 'none');
+                $('.newGame').show();
                 isPaused=true;
                 changeFunText();
                 $('.warningSpan').text('Warning!');
                 getUserId();
                 viewHighscore();
                 $('#nameInput').val("");
+                $('#optionMeny').show();
+                totalPoints = 0;
+                questionIndex = -1;
+                currentGame = [];
             }
         } else {
             checkIfUserNameExists(name, numberOfTries - 1);
@@ -350,7 +397,6 @@ $(document).ready(function() {
     $.ajax(url, settings)
     .done (response => whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries))
 };
-
 function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
     const obj = JSON.parse(response);
     let doesUsernameExists=false;
@@ -373,119 +419,13 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             viewHighscore();
             $('.warningSpan').text('Warning!');
             $('#nameInput').val("");
+            $('#optionMeny').show();
         }
     } else {
         checkIfUserNameExists2(name, numberOfTries - 1);
     }
 };
-
-
-  //implementera QUIZ API
-
-    $('#newGameButton').click(function(event) {
-        newGameFunction();
-    });
-
-    $('#startOver').click(function(event) {
-        $('#congratsDiv').hide();
-        newGameFunction();
-        isPaused = true;
-    })
-
-    function newGameFunction() {
-        const url = 'https://opentdb.com/api.php?amount=10';
-		const settings = {
-			method: 'GET',
-			data: {
-                type: 'boolean'
-			},
-		}
-		$.ajax(url, settings)
-		.done(function(response) {
-            if (response.response_code === 0) {
-            $('.newGame').hide();
-            $('.trivia').show();
-            changeBackground();
-            changeFunText();
-            todayPoints = 0;
-
-
-
-            localStorage.setItem('todayPoints', todayPoints);
-
-            $('#todayPoints').html(todayPoints);
-            currentGame = response.results;
-            localStorage.setItem('currentGame', JSON.stringify(response.results));
-            $('#startWarning').html('Start a new game?');
-            nextQuestion();
-            } else {
-                $('#startWarning').html('Oops! Try again!');
-            }
-        })
-		.fail(function(response) {
-            console.log(`Something failed. Message: ${response}.`);
-        })
-		.always(function(response) {
-            //console.log(response);
-        });
-    };
-
-  //When you choose an answer it counts your points
-    $('#trueButton').click(function(event) {
-        if (currentGame[questionIndex].correct_answer === 'True') {
-            $('.trivia').hide();
-            $('#correct').show();
-            $('#wrong').hide();
-            todayPoints++;
-            totalPoints++;
-            localStorage.setItem('todayPoints', todayPoints);
-            $('#todayPoints').html(todayPoints);
-            localStorage.setItem('totalPoints', totalPoints);
-            $('#allTimePoints').html(totalPoints);
-            updatePoints();
-            viewHighscore();
-        } else {
-            $('.trivia').hide();
-            $('#correct').hide();
-            $('#wrong').show();
-        }
-    });
-    $('#falseButton').click(function(event) {
-        if (currentGame[questionIndex].correct_answer === 'False') {
-            $('.trivia').hide();
-            $('#correct').show();
-            $('#wrong').hide();
-            todayPoints++;
-            totalPoints++;
-            localStorage.setItem('todayPoints', todayPoints);
-            $('#todayPoints').html(todayPoints);
-            localStorage.setItem('totalPoints', totalPoints);
-            $('#allTimePoints').html(totalPoints);
-            updatePoints();
-            viewHighscore();
-        } else {
-            $('.trivia').hide();
-            $('#correct').hide();
-            $('#wrong').show();
-        }
-    });
-    /* Vad som händer när man trycker på NEXT knappen efter du svarat på en fråga */
-    $('#wrongNext').on('click', event => {
-        $('.trivia').css('display', 'block');
-        $('#wrong').css('display', 'none');
-        nextQuestion();
-        changeBackground();
-    });
-    $('#correctNext').on('click', event => {
-        $('.trivia').css('display', 'block');
-        $('#correct').css('display', 'none');
-        nextQuestion();
-        changeBackground();
-    });
-
-
      //function changeFunText som ger meddelande till användaren
-
     function changeFunText (number=4) {
         let random=Math.ceil(Math.random() * Math.floor(number));
             switch(random){
@@ -503,7 +443,6 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
                 break;
             }
         };//end fuction changeFunText.
-
 
     function nextQuestion(){
       //When user press next, next question will appear.
@@ -528,31 +467,46 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
 
     }; //functon nextQuestion ends here.
 
+    /*Lägger ny bakgrundsfärg på frågediv */
+    function changeBackground (number=7) {
+        let random=Math.ceil(Math.random() * Math.floor(number));
+        switch(random){
+            case 1:
+            $('.trivia').css('background-color', '#FADBD8');
+            break;
+            case 2:
+            $('.trivia').css('background-color', '#D4E6F1');
+            break;
+            case 3:
+            $('.trivia').css('background-color', '#FCF3CF');
+            break;
+            case 4:
+            $('.trivia').css('background-color', '#F6DDCC');
+            break;
+            case 5:
+            $('.trivia').css('background-color', '#E8DAEF');
+            break;
+            case 6:
+            $('.trivia').css('background-color', '#D5F5E3');
+            break;
+            case 7:
+            $('.trivia').css('background-color', '#E5E8E8');
+            break;
+        }
+    };
 
-    //Tillhör animationen
 
-
-
+    //TILLHÖR ANIMATIONEN
   const rhombus = '<svg viewBox="0 0 13 14"><path class="rhombus" d="M5.9,1.2L0.7,6.5C0.5,6.7,0.5,7,0.7,7.2l5.2,5.4c0.2,0.2,0.5,0.2,0.7,0l5.2-5.4 C12,7,12,6.7,11.8,6.5L6.6,1.2C6.4,0.9,6.1,0.9,5.9,1.2L5.9,1.2z M3.4,6.5L6,3.9c0.2-0.2,0.5-0.2,0.7,0l2.6,2.6 c0.2,0.2,0.2,0.5,0,0.7L6.6,9.9c-0.2,0.2-0.5,0.2-0.7,0L3.4,7.3C3.2,7.1,3.2,6.8,3.4,6.5L3.4,6.5z" /></svg>'
-
   const pentahedron = '<svg viewBox="0 0 561.8 559.4"><path class="pentahedron" d="M383.4,559.4h-204l-2.6-0.2c-51.3-4.4-94-37-108.8-83l-0.2-0.6L6,276.7l-0.2-0.5c-14.5-50,3.1-102.7,43.7-131.4 L212.1,23C252.4-7.9,310.7-7.9,351,23l163.5,122.5l0.4,0.3c39,30.3,56,82.6,42.2,130.3l-0.3,1.1l-61.5,198 C480.4,525.6,435.5,559.4,383.4,559.4z M185.5,439.4h195.2l61.1-196.8c0-0.5-0.3-1.6-0.7-2.1L281.5,120.9L120.9,241.2 c0,0.3,0.1,0.7,0.2,1.2l60.8,195.8C182.5,438.5,183.7,439.1,185.5,439.4z M441,240.3L441,240.3L441,240.3z"/></svg>'
   const x = '<svg viewBox="0 0 12 12"> <path class="x" d="M10.3,4.3H7.7V1.7C7.7,0.8,7,0,6,0S4.3,0.8,4.3,1.7v2.5H1.7C0.8,4.3,0,5,0,6s0.8,1.7,1.7,1.7h2.5v2.5 C4.3,11.2,5,12,6,12s1.7-0.8,1.7-1.7V7.7h2.5C11.2,7.7,12,7,12,6S11.2,4.3,10.3,4.3z"/></svg>'
-
   const circle = '<svg x="0px" y="0px" viewBox="0 0 13 12"> <path class="circle" d="M6.5,0.1C3.4,0.1,0.8,2.8,0.8,6s2.6,5.9,5.7,5.9s5.7-2.7,5.7-5.9S9.7,0.1,6.5,0.1L6.5,0.1z M6.5,8.8 C5,8.8,3.8,7.6,3.8,6S5,3.2,6.5,3.2S9.2,4.4,9.2,6S8,8.8,6.5,8.8L6.5,8.8z"/> </svg>'
-
   const point = '<svg viewBox="0 0 12 12"> <path class="point" d="M6,7.5L6,7.5C5.1,7.5,4.5,6.9,4.5,6v0c0-0.9,0.7-1.5,1.5-1.5h0c0.9,0,1.5,0.7,1.5,1.5v0C7.5,6.9,6.9,7.5,6,7.5z "/> </svg>'
-
   function randomInt(min,max){
       return Math.floor(Math.random()*(max-min+1)+min);
   }
-
   const data = [point, rhombus, pentahedron, circle, x]
-
-
-
-
   let particles = []
-
   setInterval(function(){
     if (!isPaused){
       particles.push(
@@ -563,43 +517,15 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
       )
     }
   }, 200)
-
   function update(){
     particles = particles.filter(function(p){
       return p.move()
     })
     requestAnimationFrame(update.bind(this));
   }
-
   update();
 }); //When ready function
-/*Lägger ny bakgrundsfärg på frågediv */
-function changeBackground (number=7) {
-    let random=Math.ceil(Math.random() * Math.floor(number));
-    switch(random){
-        case 1:
-        $('.trivia').css('background-color', '#FADBD8');
-        break;
-        case 2:
-        $('.trivia').css('background-color', '#D4E6F1');
-        break;
-        case 3:
-        $('.trivia').css('background-color', '#FCF3CF');
-        break;
-        case 4:
-        $('.trivia').css('background-color', '#F6DDCC');
-        break;
-        case 5:
-        $('.trivia').css('background-color', '#E8DAEF');
-        break;
-        case 6:
-        $('.trivia').css('background-color', '#D5F5E3');
-        break;
-        case 7:
-        $('.trivia').css('background-color', '#E5E8E8');
-        break;
-    }
-};
+
 class Particle{
 
     constructor(svg, coordinates, friction){
@@ -614,12 +540,9 @@ class Particle{
       this.scale = 0.5 + Math.random()
       this.siner = 200 * Math.random()
     }
-
-
     destroy(){
       this.item.remove()
     }
-
     move(){
       this.position = this.position - this.friction
       let top = this.position;
@@ -627,7 +550,6 @@ class Particle{
       this.item.css({
         transform: "translateX("+left+"px) translateY("+top+"px) scale(" + this.scale + ") rotate("+(this.rotation)+(this.position + this.dimensions.height)+"deg)"
       })
-
       if(this.position < -(this.dimensions.height)){
         this.destroy()
         return false
@@ -635,7 +557,6 @@ class Particle{
         return true
       }
     }
-
     render(){
       this.item = $(this.svg, {
         css: {
