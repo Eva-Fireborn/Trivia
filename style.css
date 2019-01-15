@@ -57,7 +57,7 @@ body {
 }
 .line-3 {
    transform: translate3d(0, 8px, 0);
- 
+
 }
 
 /*CSS för header*/
@@ -108,7 +108,7 @@ header {
     font-size: 25px;
     font-weight: bold;
     list-style: none;
-    background-color: #F7F6E7;
+    background-color: #d2d4bc00;
     width: 200px;
     padding: 0px;
     margin: 0px;
