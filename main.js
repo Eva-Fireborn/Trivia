@@ -11,6 +11,10 @@ $(document).ready(function() {
     let userId = localStorage.getItem('userId');
     let userList = [];
 
+    
+  
+
+
     /*Kollar om en total poäng finns sparat i local storage */
     let temporary = localStorage.getItem('totalPoints');
     if (temporary !== null) {

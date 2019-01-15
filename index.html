@@ -13,15 +13,18 @@
   <link href="https://fonts.googleapis.com/css?family=Notable" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Notable|Roboto" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700" rel="stylesheet">
 </head>
 
 <body>
-  <div class="container">
+  
   <header>
     <img id="logotype" src="pictures\trivialog5.png" alt="slogan">
     <h1 id="quizName">TRIVIA NEW ROMAN</h1>
     <span id="welcomeBack"></span>
+    
     <img id="optionMeny" src="pictures\hamburgermeny.png" alt="Options">
+
     <div id="optionContent">
       <ul>
         <li id="changeUserName">Change name</li>
@@ -54,11 +57,12 @@
         </div>
         <div id="congratsDiv">
             <img src="https://media.giphy.com/media/3dgiVkhXyIVnlTz6ii/giphy.gif" alt="good job!"/>
-            <div>You are number <span id="userPlace">this</span> on the leaderboard! </div>
+            <div class="rankingDiv">You are number <span id="userPlace"></span> on the leaderboard! </div>
             <button id="startOver">Start over!</button>
         </div>
     </main>
-    <aside>
+
+    <div class="asideTop">
         <div class="aside">
           <table id="leaderBoard">
                   <caption class="scoreBoardTitles tableTitle">LEADERBOARD</caption>
@@ -84,10 +88,9 @@
       <div id="todayPoints">0</div>
       <div class="scoreBoardTitles allTimeScore">TOTAL SCORE</div>
       <div id="allTimePoints">0</div>
-
-
     </div>
-  </aside>
+  </div>
+
   <div class="background"></div>
   <div class="content">
     <img src="atom.png" class="thinkingImg">
@@ -96,7 +99,7 @@
     <input id="nameInput" type="text" placeholder="Enter your name here">
     <button id="nextPage">Try yourself</button>
   </div>
-</div>
+
 </body>
 
 </html>
