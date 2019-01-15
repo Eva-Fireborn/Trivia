@@ -326,17 +326,23 @@ main {
     font-family: fantasy;
     font-size: 20px;
     letter-spacing: 2px;
-    text-shadow: 1px 1px #F17B52;
-    font-family: 'Amatic SC', cursive;
+    text-shadow: 1px 1px black;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 100%;
+    width: 60px;
+    text-align: center;
 }
 #firstPlace {
-    color: gold;
+    color: white;
+    background-color: gold;
 }
 #secondPlace {
-    color: silver;
+    color: white;
+    background-color: silver;
 }
 #thirdPlace {
-    color: sandybrown;
+    color: white;
+    background-color: sandybrown;
 }
 
 /*TRYOUT FOR ROUND QUESTION DIVS*/
