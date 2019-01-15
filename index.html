@@ -5,13 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Trivia</title>
+  <title>Trivia New Roman</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="main.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Notable" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Notable|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700" rel="stylesheet">
 </head>
@@ -37,57 +35,56 @@
     </div>
   </header>
 
-    <main>
-        <div class="newGame">
-            <p id="startWarning">Start a new game?</p>
-            <button id="newGameButton">New Game</button>
-        </div>
-        <div class="trivia">
-            <p id="cathegory">Kategori</p>
-            <p id="question">Fråga</p>
-            <div id="question"></div>
-            <button id="trueButton">True</button>
-            <button id="falseButton">False</button>
-        </div>
-        <div id="correct">
-            <img src="https://media.giphy.com/media/l0MYwvNiMaWJhQZjy/giphy.gif" title="I was right!">
-            <p>You're so smart!</p>
-            <button id="correctNext">Next</button>
-        </div>
-        <div id="wrong">
-            <img src="https://media.giphy.com/media/l0MYICK7vFjhxwxhK/giphy.gif" title="I was terribly wrong">
-            <p>You will do better next time.</p>
-            <button id="wrongNext">Next</button>
-        </div>
-        <div id="congratsDiv">
-            <img src="https://media.giphy.com/media/3dgiVkhXyIVnlTz6ii/giphy.gif" alt="good job!"/>
-            <div class="rankingDiv">You are number <span id="userPlace"></span> on the leaderboard! </div>
-            <button id="startOver">Start over!</button>
-        </div>
-    </main>
+  <main>
+      <div class="newGame">
+          <p id="startWarning">Start a new game?</p>
+          <button id="newGameButton">New Game</button>
+      </div>
+      <div class="trivia">
+          <p id="cathegory">Kategori</p>
+          <p id="question">Fråga</p>
+          <button id="trueButton">True</button>
+          <button id="falseButton">False</button>
+      </div>
+      <div id="correct">
+          <img src="https://media.giphy.com/media/l0MYwvNiMaWJhQZjy/giphy.gif" title="I was right!">
+          <p>You're so smart!</p>
+          <button id="correctNext">Next</button>
+      </div>
+      <div id="wrong">
+          <img src="https://media.giphy.com/media/l0MYICK7vFjhxwxhK/giphy.gif" title="I was terribly wrong">
+          <p>You will do better next time.</p>
+          <button id="wrongNext">Next</button>
+      </div>
+      <div id="congratsDiv">
+          <img src="https://media.giphy.com/media/3dgiVkhXyIVnlTz6ii/giphy.gif" alt="good job!"/>
+          <div class="rankingDiv">You are number <span id="userPlace"></span> on the leaderboard! </div>
+          <button id="startOver">Start over!</button>
+      </div>
+  </main>
 
-    <div class="asideTop">
-        <div class="aside">
-          <table id="leaderBoard">
-                  <caption class="scoreBoardTitles tableTitle">LEADERBOARD</caption>
-                  <tbody>
-                  <tr>
-                  <td id="firstPlace">1st</td>
-                  <td id="winnerName">Winner name</td>
-                  <td id="winnerScore">score</td>
-                  </tr>
-                  <tr>
-                  <td id="secondPlace">2nd</td>
-                  <td id="secondName">user name</td>
-                  <td id="secondScore">score</td>
-                  </tr>
-                  <tr>
-                  <td id="thirdPlace">3rd</td>
-                  <td id="thirdName">user name</td>
-                  <td id="thirdScore">score</td>
-                  </tr>
-                  </tbody>
-                  </table>
+  <div class="asideTop">
+    <div class="aside">
+      <table id="leaderBoard">
+        <caption class="scoreBoardTitles tableTitle">LEADERBOARD</caption>
+          <tbody>
+            <tr>
+              <td id="firstPlace">1st</td>
+              <td id="winnerName">Winner name</td>
+              <td id="winnerScore">score</td>
+            </tr>
+            <tr>
+              <td id="secondPlace">2nd</td>
+              <td id="secondName">user name</td>
+              <td id="secondScore">score</td>
+            </tr>
+            <tr>
+              <td id="thirdPlace">3rd</td>
+              <td id="thirdName">user name</td>
+              <td id="thirdScore">score</td>
+            </tr>
+          </tbody>
+        </table>
       <div class="scoreBoardTitles todayScore">SCORE</div>
       <div id="todayPoints">0</div>
       <div class="scoreBoardTitles allTimeScore">TOTAL SCORE</div>
@@ -105,5 +102,4 @@
   </div>
 
 </body>
-
 </html>
