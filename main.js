@@ -194,7 +194,8 @@ $(document).ready(function() {
           data: {
               op: 'delete',
               key: apiKey,
-              id: userId
+              id: userId,
+              please: ""
           }
       }
 
@@ -208,10 +209,12 @@ $(document).ready(function() {
   function whenResponseIsIn4(response, numberOfTries) {
       let obj = JSON.parse(response);
       if (obj.status === 'success') {
-          console.log('Delete is a go!', obj);
           localStorage.removeItem('userId');
           localStorage.removeItem('username');
           localStorage.removeItem('totalPoints');
+          localStorage.removeItem('currentGame');
+          localStorage.removeItem('questionIndex');
+          localStorage.removeItem('todayPoints');
           totalPoints = 0;
           username = localStorage.getItem('username');
           userId = localStorage.getItem('userId');
@@ -439,6 +442,8 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             $('#todayPoints').html(todayPoints);
             localStorage.setItem('totalPoints', totalPoints);
             $('#allTimePoints').html(totalPoints);
+            updatePoints();
+            viewHighscore();
         } else {
             $('.trivia').hide();
             $('#correct').hide();
@@ -456,6 +461,8 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
             $('#todayPoints').html(todayPoints);
             localStorage.setItem('totalPoints', totalPoints);
             $('#allTimePoints').html(totalPoints);
+            updatePoints();
+            viewHighscore();
         } else {
             $('.trivia').hide();
             $('#correct').hide();
