@@ -76,7 +76,8 @@ $(document).ready(function() {
                 op: 'insert',
                 key: apiKey,
                 title: username,
-                author: totalPoints
+                author: totalPoints,
+                please:""
             }
         }
 
@@ -124,7 +125,8 @@ $(document).ready(function() {
             method: 'GET',
             data: {
                 op: 'select',
-                key: apiKey
+                key: apiKey,
+                please:""
             }
         }
 
@@ -245,7 +247,8 @@ $(document).ready(function() {
                 key: apiKey,
                 id: userId,
                 title: username,
-                author: totalPoints
+                author: totalPoints,
+                please:""
             }
         }
 
@@ -292,7 +295,8 @@ $(document).ready(function() {
             method: 'GET',
             data: {
                 op: 'select',
-                key: apiKey
+                key: apiKey,
+                please:""
             }
         }
         $.ajax(url, settings)
@@ -336,7 +340,8 @@ $(document).ready(function() {
         method: 'GET',
         data: {
             op: 'select',
-            key: apiKey
+            key: apiKey,
+            please:""
         }
     }
     $.ajax(url, settings)
