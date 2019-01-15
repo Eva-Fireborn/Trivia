@@ -107,7 +107,7 @@ header {
     font-size: 25px;
     font-weight: bold;
     list-style: none;
-    background-color: #F7F6E7;
+    background-color: #d2d4bc00;
     width: 200px;
     padding: 0px;
     margin: 0px;
@@ -276,7 +276,7 @@ main {
 }
 #todayPoints {
     left: 500px;
-    top: -75px;
+    top: -80px;
 }
 
 #allTimePoints {
@@ -289,7 +289,7 @@ main {
     width: 250px;
     color: white;
     position: relative;
-    top: 50px;
+    top: 40px;
     left: 35px;
     height: 200px;
     font-size: 20px;
@@ -301,6 +301,7 @@ main {
     width: 125px;
     font-family: 'Amatic SC', cursive;
     font-weight: bold;
+    text-shadow: 1px 1px #F17B52;
 }
 .todayScore {
     left: 525px;
@@ -348,7 +349,7 @@ main {
     border-radius: 100%;
     position: relative;
     margin-left: 20px;
-    top: -30px;
+    top: -40px;
 }
 
 
@@ -377,7 +378,9 @@ main {
     padding: 5px;
     font-size: 40px;
     position: relative;
-    top: 5px;
+    top: 7px;
+    font-size: 60px;
+    font-family: 'Amatic SC', cursive;
 }
 #startOver {
     width: 120px;
@@ -401,15 +404,15 @@ main {
 }
 #cathegory, #question, #question, #trueButton, #falseButton {
     position: relative;
-    top: 150px;
+    top: 130px;
 }
 #correct img, #correct p, #correctNext {
     position: relative;
-    top: 150px;
+    top: 110px;
 }
 #wrong img, #wrong p, #wrongNext {
     position: relative;
-    top: 150px;
+    top: 110px;
 }
 /*CSS för skriv in användarnamn divar och animation*/
 #nextPage {
@@ -472,7 +475,7 @@ main {
   z-index: 10;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 45%;
   transform: translateX(-50%) translateY(-50%);
   text-align: center;
 }
