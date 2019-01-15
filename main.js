@@ -12,9 +12,6 @@ $(document).ready(function() {
     let userList = [];
 
     
-  
-
-
     /*Kollar om en total poäng finns sparat i local storage */
     let temporary = localStorage.getItem('totalPoints');
     if (temporary !== null) {
@@ -365,7 +362,7 @@ function whenResponseIsIncheckIfUserNameExists2(response, name, numberOfTries) {
         if(!doesUsernameExists){
             localStorage.setItem('username', name);
             username = name;
-            updatePoints()
+            updatePoints();
             $('.content').css('display', 'none');
             $('.background').css('display', 'none');
             isPaused=true;
