@@ -365,6 +365,10 @@ $('#falseButton').click(function(event) {
                 $('.content').css('display', 'none');
                 $('.background').css('display', 'none');
                 $('.newGame').show();
+                $('.trivia').hide();
+                $('#correct').hide();
+                $('#wrong').hide();
+                $('#congratsDiv').hide();
                 isPaused=true;
                 changeFunText();
                 $('.warningSpan').text('Warning!');
@@ -373,6 +377,9 @@ $('#falseButton').click(function(event) {
                 $('#nameInput').val("");
                 $('#optionMeny').show();
                 totalPoints = 0;
+                todayPoints = 0;
+                $('#todayPoints').html(todayPoints)
+                $('#allTimePoints').html(todayPoints)
                 questionIndex = -1;
                 currentGame = [];
             }
