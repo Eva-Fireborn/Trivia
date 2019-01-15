@@ -1,3 +1,4 @@
+
 body {
     background-color: #D2D4BC;
     display: grid;
@@ -8,56 +9,7 @@ body {
     overflow: hidden;
     width: 100%;
     height: auto;
-}
-/*CSS FOR HAMBURGER BUTTON*/
-.menu-open-button:hover {
-    transform: scale(1.2, 1.2) translate3d(0, 0, 0);
-}
-#optionMeny {
-  height: 50px;
-  display: inline-block;
-  position: absolute;
-  right: 115px;
-  top: 25px;
-  cursor: pointer;
-}
-.menu-open-button {
-   background: #FF5B61;
-   border-radius: 100%;
-   width: 60px;
-   height: 60px;
-   position: absolute;
-   text-align: center;
-   line-height: 80px;
-   transform: translate3d(0, 0, 0);
-   transition: transform ease-out 200ms;
-   z-index: 2;
-   transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-   cursor: pointer;
-   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
-}
 
-.lines {
-   width: 25px;
-   height: 3px;
-   background: #D2D4BC;
-   display: block;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   margin-left: -12.5px;
-   margin-top: -1.5px;
-   transition: transform 200ms;
-}
-.line-1 {
-   transform: translate3d(0, -8px, 0);
-}
-.line-2 {
-   transform: translate3d(0, 0, 0);
-}
-.line-3 {
-   transform: translate3d(0, 8px, 0);
- 
 }
 
 /*CSS för header*/
@@ -79,6 +31,7 @@ header {
   display: inline-block;
   bottom: 40px;
   font-size: 50px;
+  font-family: 'Notable', sans-serif;
   margin-left: 20px;
   letter-spacing: 2px;
   font-family: 'Amatic SC', cursive;
@@ -91,11 +44,19 @@ header {
   top: 35px;
   margin-right: 150px;
   font-size: 35px;
+  font-family: 'Roboto', sans-serif;
   text-shadow: 1px 1px #F17B52;
   letter-spacing: 2px;
   font-family: 'Amatic SC', cursive;
 }
-
+#optionMeny{
+  height: 50px;
+  display: inline-block;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  cursor: pointer;
+}
 #optionContent {
     display: none;
 }
@@ -103,19 +64,20 @@ header {
 #optionContent > ul{
     border-radius: 3px;
     box-shadow: 9px 14px 56px 0px rgba(89,72,27,1);
-    font-family: 'Amatic SC', cursive;
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    list-style: none;
-    background-color: #d2d4bc00;
-    width: 200px;
-    padding: 0px;
-    margin: 0px;
-    position: absolute;
-    right: 10px;
-    z-index: 2;
-    top: 100px;
+}
+ul{
+  list-style: none;
+  background-color: #F7F6E7;
+  width: 180px;
+  padding: 0px;
+  margin: 0px;
+  font-size: 1.1em;
+  position: absolute;
+  right: 10px;
+  z-index: 2;
+  top: 100px;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 3px;
 }
 li:hover{
   background-color:#FCF3CF;
@@ -123,7 +85,7 @@ li:hover{
 }
 li{
   display: block;
-  width: 180px;
+  width: 140px;
   padding: 10px;
 }
 /*CSS för main elementen*/
@@ -135,11 +97,11 @@ main {
 
 /*CSS för nytt spel div*/
 .newGame p {
-    font-family: 'Amatic SC', cursive;
-    font-weight: bold;
-    font-size: 30px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 25px;
 }
 #newGameButton {
+    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin: 20px;
@@ -157,15 +119,17 @@ main {
 .trivia {
     display: none;
 }
-#cathegory{
-    font-family: 'Amatic SC', cursive;
-    font-weight: bold;
-    font-size: 30px;
+.trivia p {
+    font-family: 'PT Sans', sans-serif;
+}
+#cathegory {
+    font-size: 25px;
 }
 #question {
     font-size: 20px;
 }
 #trueButton {
+    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin: 20px;
@@ -180,6 +144,7 @@ main {
     color: white;
 }
 #falseButton {
+    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin: 20px;
@@ -207,8 +172,10 @@ main {
 #correct p {
     font-size: 20px;
     margin: 0px;
+    font-family: 'PT Sans', sans-serif;
 }
 #correctNext {
+    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin-top: 15px;
@@ -237,6 +204,7 @@ main {
     margin: 0px;
 }
 #wrongNext {
+    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin-top: 15px;
@@ -261,8 +229,8 @@ main {
     background-image: url("new-point-bubble.png");
     background-size: contain;
     background-repeat: no-repeat;
-    width: 650px;
-    height: 650px;
+    width: 550px;
+    height: 550px;
     position: relative;
     display: block;
     top: -70px;
@@ -273,43 +241,42 @@ main {
     position: relative;
     width: 95px;
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
 }
 #todayPoints {
-    left: 500px;
-    top: -80px;
+    left: 420px;
+    top: -55px;
 }
 
 #allTimePoints {
-    top: 105px;
-    left: 505px;
+    top: 110px;
+    left: 420px;
 }
 
 /*Leader board css*/
 #leaderBoard {
-    width: 250px;
+    width: 190px;
     color: white;
     position: relative;
-    top: 40px;
-    left: 35px;
-    height: 200px;
-    font-size: 20px;
+    top: 30px;
+    left: 20px;
+    height: 155px;
+    font-size: 18px;
 }
 .scoreBoardTitles {
     color: white;
     position: relative;
-    font-size: 30px;
+    font-size: 25px;
     width: 125px;
     font-family: 'Amatic SC', cursive;
     font-weight: bold;
-    text-shadow: 1px 1px #F17B52;
 }
 .todayScore {
-    left: 525px;
-    top: -90px;
+    left: 447px;
+    top: -60px;
 }
 .allTimeScore {
-    left: 505px;
+    left: 427px;
     top: 105px;
 }
 .tableTitle {
@@ -317,14 +284,13 @@ main {
     top: -10px;
     left: 60px;
 }
-#winnerName, #winnerScore, #secondName, #secondScore, #thirdName, #thirdScore {
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+.winnerName, .winnerScore, .secondName, .secondScore, .thirdName, .thirdScore {
+    font-family: 'PT Sans', sans-serif;
 }
 #firstPlace, #secondPlace, #thirdPlace {
     font-weight: bold;
     font-family: fantasy;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 2px;
     text-shadow: 1px 1px #F17B52;
     font-family: 'Amatic SC', cursive;
@@ -342,15 +308,15 @@ main {
 /*TRYOUT FOR ROUND QUESTION DIVS*/
 .newGame, .trivia, #correct, #wrong, #congratsDiv {
     border: 2px solid #20D0C2;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     padding: 20px;
-    width: 510px;
-    height: 500px;
+    width: 410px;
+    height: 400px;
     text-align: center;
     border-radius: 100%;
     position: relative;
     margin-left: 20px;
-    top: -40px;
+    top: -30px;
 }
 
 
@@ -367,11 +333,12 @@ main {
     background-color: #F7F6E7;
 }
 #congratsDiv img {
-    width: 350px;
+    width: 280px;
 }
 
 #congratsDiv p {
     font-size: 25px;
+    font-family: 'PT Sans', sans-serif;
 }
 #userPlace {
     color: red;
@@ -379,11 +346,10 @@ main {
     padding: 5px;
     font-size: 40px;
     position: relative;
-    top: 7px;
-    font-size: 60px;
-    font-family: 'Amatic SC', cursive;
+    top: 5px;
 }
 #startOver {
+    font-family: 'PT Sans', sans-serif;
     width: 120px;
     height: 2em;
     margin: 20px;
@@ -401,37 +367,47 @@ main {
 
 .newGame #startWarning, .newGame #newGameButton {
     position: relative;
-    top: 180px;
+    top: 150px;
 }
 #cathegory, #question, #question, #trueButton, #falseButton {
     position: relative;
-    top: 130px;
+    top: 90px;
 }
-#correct img, #correct p, #correctNext {
+#correct p, #correctNext {
     position: relative;
-    top: 110px;
+    top: 50px;
 }
-#wrong img, #wrong p, #wrongNext {
+#correct img{
     position: relative;
-    top: 110px;
+    top: 50px;
+    left: -15px;
 }
+#wrong p, #wrongNext {
+    position: relative;
+    top: 50px;
+}
+#wrong img{
+    position: relative;
+    top: 50px;
+    left: -15px;
+}
+
 /*CSS för skriv in användarnamn divar och animation*/
 #nextPage {
     width: 500px;
     display: block;
-    height: 50px;
+    height: 35px;
     background-color: #20D0C2;
     text-decoration: none;
     color: white;
     font-weight: bold;
-    font-size: 24px;
-    line-height: 45px;
+    font-size: 18px;
     border-radius: 3px;
     box-shadow: 0 1px 2px #999999;
     text-shadow: 0 1px rgb(202, 212, 216);
     text-align: center;
     transition: background-color 1s;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 #nextPage:hover {
   background-color: #FF5B61;
@@ -441,8 +417,8 @@ main {
   width: 500px;
   color: rgb(90, 90, 90);
   font-weight: bold;
-  font-family: 'Roboto', sans-serif;
-  font-size: 20px;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 18px;
 }
 .warningSpan {
   color: #FF5B61;
@@ -450,7 +426,7 @@ main {
 }
 #nameInput {
     width: 500px;
-    height: 50px;
+    height: 35px;
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: bold;
@@ -459,7 +435,8 @@ main {
     border: none;
     border-radius: 3px;
     color: #FF5B61;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'PT Sans', sans-serif;
+
 }
 .background {
     grid-row: 1 / 3;
@@ -476,14 +453,14 @@ main {
   z-index: 10;
   position: absolute;
   left: 50%;
-  top: 45%;
+  top: 50%;
   transform: translateX(-50%) translateY(-50%);
   text-align: center;
 }
 
 .thinkingImg {
     z-index: 10;
-    width: 400px;
+    width: 320px;
 }
 
 .pentahedron {
